@@ -11,13 +11,18 @@ void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Ope
     //     return;
     // }
 
+    // If stack is empty or current operator is (, just push it.
     if (operator_stack->is_empty() || *current == '(') {
+        cout << "BIGGG";
         operator_stack->push(current);
         return;
     }
 
+    // If operator is closing parenthesis, all operators should popped to the string.
+    Operator* top = operator_stack->get();
+    
     if (*current == ')') {
-        if (*operator_stack->get() == ')') {
+        if (*top == '(') {
             operator_stack->pop();
             return;
         }
@@ -25,7 +30,9 @@ void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Ope
         add_operator_to_stack(postfix, operator_stack, current);
         return;
     }
-    if (current->get_priority() >= operator_stack->get()->get_priority()) {
+
+    // If current <= top, pop the top to the string and use recursion to check new top(s).
+    if (current->get_priority() >= top->get_priority()) {
         operator_stack->pop_to_string(postfix);
         add_operator_to_stack(postfix, operator_stack, current);
         return;

@@ -11,7 +11,6 @@ void test_infix_to_postfix() {
     test("(a+b)*c"                , "(ab+c)*", &InfixToPostfix);
     test("a+b*(c^d-e)^(f+g*h)-i"  , "ab+cde^-fgh*+i-", &InfixToPostfix);
     test("((a+b)*c-(d/e))^f+g*h-i", "((ab+c)*de/-)^fgh*-i", &InfixToPostfix);
-
 }
 
 #endif
