@@ -5,17 +5,14 @@
 #include "tests.cpp"
 
 void test_infix_to_postfix() {
-    test("a+b"                    , "ab+", &InfixToPostfix);
-    test("a+b*c"                  , "abc*+", &InfixToPostfix);
-    test("a+b*c-d/e"              , "abc*+de/-", &InfixToPostfix);
-    test("(a+b)*c"                , "ab+c*", &InfixToPostfix);
-    test("a+b*(c*d-e)"           , "abcd*e-*+", &InfixToPostfix);
-    test("a+b*(c-d/e)"           , "abcde/-*+", &InfixToPostfix);
-
-
-    // The operators ^, [ and ] are out of the syllabus, so skipping these tests for now.
-    test("a+b*(c^d-e)^(f+g*h)-i"  , "abcd^e-fgh*+^*+i-", &InfixToPostfix);
-    test("((a+b)*c-(d/e))^f+g*h-i", "ab+c*de/-f^gh*+i-", &InfixToPostfix);
+    test_function("a+b"                    , "ab+", &InfixToPostfix);
+    test_function("a+b*c"                  , "abc*+", &InfixToPostfix);
+    test_function("a+b*c-d/e"              , "abc*+de/-", &InfixToPostfix);
+    test_function("(a+b)*c"                , "ab+c*", &InfixToPostfix);
+    test_function("a+b*(c*d-e)"           , "abcd*e-*+", &InfixToPostfix);
+    test_function("a+b*(c-d/e)"           , "abcde/-*+", &InfixToPostfix);
+    test_function("((a+b)*c)-d"           , "ab+c*d-", &InfixToPostfix);
+    test_function("a+(b*c-(d/e^f)*g)*h"   , "abc*def^/g*-h*+", &InfixToPostfix);
 }
 
 #endif

@@ -29,6 +29,9 @@ public:
     void display();
     void pop_all_to_string(string *s);
     T* pop_to_string(string *s);
+    int length() {
+        return top + 1;
+    }
 };
 
 template <typename T>

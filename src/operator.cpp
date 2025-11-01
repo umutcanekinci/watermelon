@@ -45,6 +45,10 @@ public:
     bool operator==(char c) {
         return c == get_value();
     }
+
+    bool operator!=(char c) {
+        return c != get_value();
+    }
 };
 
 ostream & operator<<(ostream & Str, Operator* const & v) { 
