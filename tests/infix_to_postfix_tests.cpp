@@ -8,9 +8,14 @@ void test_infix_to_postfix() {
     test("a+b"                    , "ab+", &InfixToPostfix);
     test("a+b*c"                  , "abc*+", &InfixToPostfix);
     test("a+b*c-d/e"              , "abc*+de/-", &InfixToPostfix);
-    test("(a+b)*c"                , "(ab+c)*", &InfixToPostfix);
-    test("a+b*(c^d-e)^(f+g*h)-i"  , "ab+cde^-fgh*+i-", &InfixToPostfix);
-    test("((a+b)*c-(d/e))^f+g*h-i", "((ab+c)*de/-)^fgh*-i", &InfixToPostfix);
+    test("(a+b)*c"                , "ab+c*", &InfixToPostfix);
+    test("a+b*(c*d-e)"           , "abcd*e-*+", &InfixToPostfix);
+    test("a+b*(c-d/e)"           , "abcde/-*+", &InfixToPostfix);
+
+
+    // The operators ^, [ and ] are out of the syllabus, so skipping these tests for now.
+    test("a+b*(c^d-e)^(f+g*h)-i"  , "abcd^e-fgh*+^*+i-", &InfixToPostfix);
+    test("((a+b)*c-(d/e))^f+g*h-i", "ab+c*de/-f^gh*+i-", &InfixToPostfix);
 }
 
 #endif

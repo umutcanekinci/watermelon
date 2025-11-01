@@ -19,9 +19,10 @@ void test(string input, string expected, string (*func)(string)) {
     string output = func(input);
     if(output == expected) {
         cout << GREEN << "Test passed for  : " << input << endl << RESET;
+        cout << GREEN << "Output          : " << output << endl << RESET;
     } else {
         cout << RED    << "Test failed for : " << input << endl << RESET;
-        cout << BLUE   << "Expected        : " << output << endl << RESET;
+        cout << BLUE   << "Expected        : " << expected << endl << RESET;
         cout << YELLOW << "Got             : " << output << endl << RESET;
     }
     cout << endl;
