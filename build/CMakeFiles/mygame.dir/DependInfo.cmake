@@ -10,10 +10,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/PC/Desktop/watermelon/src/compiler.cpp" "CMakeFiles/mygame.dir/src/compiler.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/compiler.cpp.obj.d"
   "C:/Users/PC/Desktop/watermelon/src/file_operations.cpp" "CMakeFiles/mygame.dir/src/file_operations.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/file_operations.cpp.obj.d"
+  "C:/Users/PC/Desktop/watermelon/src/function_tester.cpp" "CMakeFiles/mygame.dir/src/function_tester.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/function_tester.cpp.obj.d"
   "C:/Users/PC/Desktop/watermelon/src/infix_to_postfix.cpp" "CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj.d"
   "C:/Users/PC/Desktop/watermelon/src/main.cpp" "CMakeFiles/mygame.dir/src/main.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/main.cpp.obj.d"
   "C:/Users/PC/Desktop/watermelon/src/operator.cpp" "CMakeFiles/mygame.dir/src/operator.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/operator.cpp.obj.d"
-  "C:/Users/PC/Desktop/watermelon/src/stack.cpp" "CMakeFiles/mygame.dir/src/stack.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/stack.cpp.obj.d"
+  "C:/Users/PC/Desktop/watermelon/src/script_line.cpp" "CMakeFiles/mygame.dir/src/script_line.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/script_line.cpp.obj.d"
+  "C:/Users/PC/Desktop/watermelon/src/token.cpp" "CMakeFiles/mygame.dir/src/token.cpp.obj" "gcc" "CMakeFiles/mygame.dir/src/token.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -13,6 +13,12 @@
 },
 {
   "directory": "C:/Users/PC/Desktop/watermelon/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEVELOPLEMT_BUILD=1 -DPRODUCTION_BUILD=0 -DRESOURCES_PATH=\\\"C:/Users/PC/Desktop/watermelon/resources/\\\" @CMakeFiles/mygame.dir/includes_CXX.rsp -g -std=gnu++17 -UUNICODE -U_UNICODE -o CMakeFiles\\mygame.dir\\src\\function_tester.cpp.obj -c C:\\Users\\PC\\Desktop\\watermelon\\src\\function_tester.cpp",
+  "file": "C:/Users/PC/Desktop/watermelon/src/function_tester.cpp",
+  "output": "CMakeFiles/mygame.dir/src/function_tester.cpp.obj"
+},
+{
+  "directory": "C:/Users/PC/Desktop/watermelon/build",
   "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEVELOPLEMT_BUILD=1 -DPRODUCTION_BUILD=0 -DRESOURCES_PATH=\\\"C:/Users/PC/Desktop/watermelon/resources/\\\" @CMakeFiles/mygame.dir/includes_CXX.rsp -g -std=gnu++17 -UUNICODE -U_UNICODE -o CMakeFiles\\mygame.dir\\src\\infix_to_postfix.cpp.obj -c C:\\Users\\PC\\Desktop\\watermelon\\src\\infix_to_postfix.cpp",
   "file": "C:/Users/PC/Desktop/watermelon/src/infix_to_postfix.cpp",
   "output": "CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj"
@@ -31,8 +37,14 @@
 },
 {
   "directory": "C:/Users/PC/Desktop/watermelon/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEVELOPLEMT_BUILD=1 -DPRODUCTION_BUILD=0 -DRESOURCES_PATH=\\\"C:/Users/PC/Desktop/watermelon/resources/\\\" @CMakeFiles/mygame.dir/includes_CXX.rsp -g -std=gnu++17 -UUNICODE -U_UNICODE -o CMakeFiles\\mygame.dir\\src\\stack.cpp.obj -c C:\\Users\\PC\\Desktop\\watermelon\\src\\stack.cpp",
-  "file": "C:/Users/PC/Desktop/watermelon/src/stack.cpp",
-  "output": "CMakeFiles/mygame.dir/src/stack.cpp.obj"
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEVELOPLEMT_BUILD=1 -DPRODUCTION_BUILD=0 -DRESOURCES_PATH=\\\"C:/Users/PC/Desktop/watermelon/resources/\\\" @CMakeFiles/mygame.dir/includes_CXX.rsp -g -std=gnu++17 -UUNICODE -U_UNICODE -o CMakeFiles\\mygame.dir\\src\\script_line.cpp.obj -c C:\\Users\\PC\\Desktop\\watermelon\\src\\script_line.cpp",
+  "file": "C:/Users/PC/Desktop/watermelon/src/script_line.cpp",
+  "output": "CMakeFiles/mygame.dir/src/script_line.cpp.obj"
+},
+{
+  "directory": "C:/Users/PC/Desktop/watermelon/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEVELOPLEMT_BUILD=1 -DPRODUCTION_BUILD=0 -DRESOURCES_PATH=\\\"C:/Users/PC/Desktop/watermelon/resources/\\\" @CMakeFiles/mygame.dir/includes_CXX.rsp -g -std=gnu++17 -UUNICODE -U_UNICODE -o CMakeFiles\\mygame.dir\\src\\token.cpp.obj -c C:\\Users\\PC\\Desktop\\watermelon\\src\\token.cpp",
+  "file": "C:/Users/PC/Desktop/watermelon/src/token.cpp",
+  "output": "CMakeFiles/mygame.dir/src/token.cpp.obj"
 }
 ]

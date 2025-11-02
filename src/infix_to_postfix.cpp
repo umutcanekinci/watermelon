@@ -1,7 +1,8 @@
-#include <iostream>
+#include <string>
+#include "infix_to_postfix.h"
 #include "operator.h"
 #include "stack.h"
-#include "infix_to_postfix.h"
+using namespace std;
 
 bool check_parenthesis(string &infix) {
     Stack<Operator> *parenthesis_stack = new Stack<Operator>();
@@ -68,7 +69,7 @@ void infix_to_postfix_char(string &infix, string &postfix, int i, Stack<Operator
         postfix += current->get_value();
 }
 
-string InfixToPostfix(string infix) {
+string infix_to_postfix(string infix) {
     /*
     * If element is not an operator add to the postfix
     * else add to the stack

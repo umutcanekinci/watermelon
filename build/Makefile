@@ -177,6 +177,30 @@ src/file_operations.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/file_operations.cpp.s
 .PHONY : src/file_operations.cpp.s
 
+src/function_tester.obj: src/function_tester.cpp.obj
+.PHONY : src/function_tester.obj
+
+# target to build an object file
+src/function_tester.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/function_tester.cpp.obj
+.PHONY : src/function_tester.cpp.obj
+
+src/function_tester.i: src/function_tester.cpp.i
+.PHONY : src/function_tester.i
+
+# target to preprocess a source file
+src/function_tester.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/function_tester.cpp.i
+.PHONY : src/function_tester.cpp.i
+
+src/function_tester.s: src/function_tester.cpp.s
+.PHONY : src/function_tester.s
+
+# target to generate assembly for a file
+src/function_tester.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/function_tester.cpp.s
+.PHONY : src/function_tester.cpp.s
+
 src/infix_to_postfix.obj: src/infix_to_postfix.cpp.obj
 .PHONY : src/infix_to_postfix.obj
 
@@ -249,29 +273,53 @@ src/operator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/operator.cpp.s
 .PHONY : src/operator.cpp.s
 
-src/stack.obj: src/stack.cpp.obj
-.PHONY : src/stack.obj
+src/script_line.obj: src/script_line.cpp.obj
+.PHONY : src/script_line.obj
 
 # target to build an object file
-src/stack.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/stack.cpp.obj
-.PHONY : src/stack.cpp.obj
+src/script_line.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/script_line.cpp.obj
+.PHONY : src/script_line.cpp.obj
 
-src/stack.i: src/stack.cpp.i
-.PHONY : src/stack.i
+src/script_line.i: src/script_line.cpp.i
+.PHONY : src/script_line.i
 
 # target to preprocess a source file
-src/stack.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/stack.cpp.i
-.PHONY : src/stack.cpp.i
+src/script_line.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/script_line.cpp.i
+.PHONY : src/script_line.cpp.i
 
-src/stack.s: src/stack.cpp.s
-.PHONY : src/stack.s
+src/script_line.s: src/script_line.cpp.s
+.PHONY : src/script_line.s
 
 # target to generate assembly for a file
-src/stack.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/stack.cpp.s
-.PHONY : src/stack.cpp.s
+src/script_line.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/script_line.cpp.s
+.PHONY : src/script_line.cpp.s
+
+src/token.obj: src/token.cpp.obj
+.PHONY : src/token.obj
+
+# target to build an object file
+src/token.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/token.cpp.obj
+.PHONY : src/token.cpp.obj
+
+src/token.i: src/token.cpp.i
+.PHONY : src/token.i
+
+# target to preprocess a source file
+src/token.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/token.cpp.i
+.PHONY : src/token.cpp.i
+
+src/token.s: src/token.cpp.s
+.PHONY : src/token.s
+
+# target to generate assembly for a file
+src/token.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/token.cpp.s
+.PHONY : src/token.cpp.s
 
 # Help Target
 help:
@@ -288,6 +336,9 @@ help:
 	@echo ... src/file_operations.obj
 	@echo ... src/file_operations.i
 	@echo ... src/file_operations.s
+	@echo ... src/function_tester.obj
+	@echo ... src/function_tester.i
+	@echo ... src/function_tester.s
 	@echo ... src/infix_to_postfix.obj
 	@echo ... src/infix_to_postfix.i
 	@echo ... src/infix_to_postfix.s
@@ -297,9 +348,12 @@ help:
 	@echo ... src/operator.obj
 	@echo ... src/operator.i
 	@echo ... src/operator.s
-	@echo ... src/stack.obj
-	@echo ... src/stack.i
-	@echo ... src/stack.s
+	@echo ... src/script_line.obj
+	@echo ... src/script_line.i
+	@echo ... src/script_line.s
+	@echo ... src/token.obj
+	@echo ... src/token.i
+	@echo ... src/token.s
 .PHONY : help
 
 

@@ -1,6 +1,5 @@
 #include <string>
 #include "operator.h"
-
 using namespace std;
 
 Operator::Operator(char value) : value(value) {}

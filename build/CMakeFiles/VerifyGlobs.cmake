@@ -7,10 +7,12 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/PC/Desktop/watermelo
 set(OLD_GLOB
   "C:/Users/PC/Desktop/watermelon/src/compiler.cpp"
   "C:/Users/PC/Desktop/watermelon/src/file_operations.cpp"
+  "C:/Users/PC/Desktop/watermelon/src/function_tester.cpp"
   "C:/Users/PC/Desktop/watermelon/src/infix_to_postfix.cpp"
   "C:/Users/PC/Desktop/watermelon/src/main.cpp"
   "C:/Users/PC/Desktop/watermelon/src/operator.cpp"
-  "C:/Users/PC/Desktop/watermelon/src/stack.cpp"
+  "C:/Users/PC/Desktop/watermelon/src/script_line.cpp"
+  "C:/Users/PC/Desktop/watermelon/src/token.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

@@ -1,5 +1,5 @@
-CMakeFiles/mygame.dir/src/compiler.cpp.obj: \
- C:\Users\PC\Desktop\watermelon\src\compiler.cpp \
+CMakeFiles/mygame.dir/src/function_tester.cpp.obj: \
+ C:\Users\PC\Desktop\watermelon\src\function_tester.cpp \
  C:/msys64/ucrt64/include/c++/15.2.0/iostream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -144,10 +144,5 @@ CMakeFiles/mygame.dir/src/compiler.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_vector.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/vector.tcc \
- C:/Users/PC/Desktop/watermelon/include/compiler.h \
- C:/Users/PC/Desktop/watermelon/include/file_operations.h \
- C:/Users/PC/Desktop/watermelon/include/infix_to_postfix.h \
- C:/Users/PC/Desktop/watermelon/include/stack.h \
- C:/Users/PC/Desktop/watermelon/include/operator.h \
- C:/Users/PC/Desktop/watermelon/include/token.h \
- C:/Users/PC/Desktop/watermelon/include/script_line.h
+ C:/Users/PC/Desktop/watermelon/include/function_tester.h \
+ C:/Users/PC/Desktop/watermelon/include/file_operations.h
