@@ -1,0 +1,11 @@
+// a+b
+// a+b*c
+// a+b*c-d/e
+// (a+b)*c
+// a+b*(c*d-e)
+// a+b*(c-d/e)
+// a+b*(c^d-e)^(f+g*h)-i
+// ((a+b)*c-(d/e))^f+g*h-i
+a=5
+b=3
+c=a+b

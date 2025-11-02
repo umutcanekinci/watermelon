@@ -11,11 +11,27 @@ using namespace std;
 */
 
 template <typename T>
-Stack<T>::Stack() {
-    size = 100;
-    array = new T*[size];
-    top = -1;
-}
+class Stack {
+    T **array;
+    int top, size;
+public:
+    Stack() {
+        size = 100;
+        array = new T*[size];
+        top = -1;
+    }
+
+    void push(T* value);
+    T* get(), * pop();
+    bool is_empty();
+    bool is_full();
+    void display();
+    void pop_all_to_string(string *s);
+    T* pop_to_string(string *s);
+    int length() {
+        return top + 1;
+    }
+};
 
 template <typename T>
 void Stack<T>::push(T* value) {

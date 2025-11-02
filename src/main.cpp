@@ -1,9 +1,9 @@
-#include "../tests/stack_tests.cpp"
-#include "../tests/infix_to_postfix_tests.cpp"
-
+#include "compiler.cpp"
 using namespace std;
 
 int main() {
-    test_infix_to_postfix();
+    Compiler* compiler = new Compiler();
+    vector<string> output = compiler->compile_file("../tests/test.cpp");
+    create_output_file("../tests/test.cpp", output);
     return 0;
 }

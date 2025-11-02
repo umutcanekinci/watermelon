@@ -1,5 +1,25 @@
-#include "operator.h"
-#include "stack.h"
+#ifndef INFIX_TO_POSTFIX_CPP
+#define INFIX_TO_POSTFIX_CPP
+
+#include <iostream>
+#include "operator.cpp"
+#include "stack.cpp"
+
+bool check_parenthesis(string &infix) {
+    Stack<Operator> *parenthesis_stack = new Stack<Operator>();
+
+    for (int i=0; i<infix.length(); i++) {
+        Operator* character = new Operator(infix[i]);
+        if (*character == '(')
+            parenthesis_stack->push(character);
+        else if (*character == ')') {
+            if (parenthesis_stack->is_empty() || *parenthesis_stack->get() != '(')
+                return false;
+            parenthesis_stack->pop();
+        }
+    }
+    return parenthesis_stack->is_empty();
+}
 
 void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Operator *current) {
     // if (current->is_parenthesis()) {
@@ -9,7 +29,7 @@ void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Ope
 
     // If stack is empty or current operator is (, just push it.
     if (operator_stack->is_empty() || *current == '(') {
-        
+        // cout << "BIGGG";
         operator_stack->push(current);
         return;
     }
@@ -29,6 +49,11 @@ void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Ope
 
     // If current <= top, pop the top to the string and use recursion to check new top(s).
     if (current->get_priority() >= top->get_priority()) {
+        if (*top == '(') {
+            operator_stack->push(current);
+            return;
+        }
+
         operator_stack->pop_to_string(postfix);
         add_operator_to_stack(postfix, operator_stack, current);
         return;
@@ -59,7 +84,6 @@ string InfixToPostfix(string infix) {
     // Creating stacks
     string postfix = "";
     Stack<Operator> *operator_stack = new Stack<Operator>();
-    Stack<Operator> *parenthesis_stack = new Stack<Operator>();
 
     // Parsing infix
     for(int i=0; i < infix.length(); i++) {
