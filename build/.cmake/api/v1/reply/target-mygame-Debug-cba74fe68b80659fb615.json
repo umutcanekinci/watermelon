@@ -152,7 +152,9 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5
 			]
 		}
 	],
@@ -192,12 +194,26 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5
 			]
 		}
 	],
 	"sources" : 
 	[
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/compiler.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/file_operations.cpp",
+			"sourceGroupIndex" : 0
+		},
 		{
 			"backtrace" : 10,
 			"compileGroupIndex" : 0,

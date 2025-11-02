@@ -1,9 +1,7 @@
-#ifndef INFIX_TO_POSTFIX_CPP
-#define INFIX_TO_POSTFIX_CPP
-
 #include <iostream>
-#include "operator.cpp"
-#include "stack.cpp"
+#include "operator.h"
+#include "stack.h"
+#include "infix_to_postfix.h"
 
 bool check_parenthesis(string &infix) {
     Stack<Operator> *parenthesis_stack = new Stack<Operator>();
@@ -62,7 +60,7 @@ void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Ope
     operator_stack->push(current);
 }
 
-void InfixToPostfixChar(string &infix, string &postfix, int i, Stack<Operator> *operator_stack) {
+void infix_to_postfix_char(string &infix, string &postfix, int i, Stack<Operator> *operator_stack) {
     Operator *current = new Operator(infix[i]);
     if(current->is_operator())
         add_operator_to_stack(&postfix, operator_stack, current);
@@ -87,7 +85,7 @@ string InfixToPostfix(string infix) {
 
     // Parsing infix
     for(int i=0; i < infix.length(); i++) {
-        InfixToPostfixChar(infix, postfix, i, operator_stack);
+        infix_to_postfix_char(infix, postfix, i, operator_stack);
     }
 
     // Move remaining operators to postfix

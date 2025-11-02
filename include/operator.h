@@ -11,4 +11,5 @@ public:
     bool is_operator() const;
     int get_priority() const;
     bool operator==(char c) const;
+    bool operator!=(char c) const;
 };

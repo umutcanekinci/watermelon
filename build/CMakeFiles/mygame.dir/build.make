@@ -71,11 +71,41 @@ include CMakeFiles/mygame.dir/flags.make
 CMakeFiles/mygame.dir/codegen:
 .PHONY : CMakeFiles/mygame.dir/codegen
 
+CMakeFiles/mygame.dir/src/compiler.cpp.obj: CMakeFiles/mygame.dir/flags.make
+CMakeFiles/mygame.dir/src/compiler.cpp.obj: CMakeFiles/mygame.dir/includes_CXX.rsp
+CMakeFiles/mygame.dir/src/compiler.cpp.obj: C:/Users/PC/Desktop/watermelon/src/compiler.cpp
+CMakeFiles/mygame.dir/src/compiler.cpp.obj: CMakeFiles/mygame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mygame.dir/src/compiler.cpp.obj"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mygame.dir/src/compiler.cpp.obj -MF CMakeFiles\mygame.dir\src\compiler.cpp.obj.d -o CMakeFiles\mygame.dir\src\compiler.cpp.obj -c C:\Users\PC\Desktop\watermelon\src\compiler.cpp
+
+CMakeFiles/mygame.dir/src/compiler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/mygame.dir/src/compiler.cpp.i"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\PC\Desktop\watermelon\src\compiler.cpp > CMakeFiles\mygame.dir\src\compiler.cpp.i
+
+CMakeFiles/mygame.dir/src/compiler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/mygame.dir/src/compiler.cpp.s"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\PC\Desktop\watermelon\src\compiler.cpp -o CMakeFiles\mygame.dir\src\compiler.cpp.s
+
+CMakeFiles/mygame.dir/src/file_operations.cpp.obj: CMakeFiles/mygame.dir/flags.make
+CMakeFiles/mygame.dir/src/file_operations.cpp.obj: CMakeFiles/mygame.dir/includes_CXX.rsp
+CMakeFiles/mygame.dir/src/file_operations.cpp.obj: C:/Users/PC/Desktop/watermelon/src/file_operations.cpp
+CMakeFiles/mygame.dir/src/file_operations.cpp.obj: CMakeFiles/mygame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mygame.dir/src/file_operations.cpp.obj"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mygame.dir/src/file_operations.cpp.obj -MF CMakeFiles\mygame.dir\src\file_operations.cpp.obj.d -o CMakeFiles\mygame.dir\src\file_operations.cpp.obj -c C:\Users\PC\Desktop\watermelon\src\file_operations.cpp
+
+CMakeFiles/mygame.dir/src/file_operations.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/mygame.dir/src/file_operations.cpp.i"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\PC\Desktop\watermelon\src\file_operations.cpp > CMakeFiles\mygame.dir\src\file_operations.cpp.i
+
+CMakeFiles/mygame.dir/src/file_operations.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/mygame.dir/src/file_operations.cpp.s"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\PC\Desktop\watermelon\src\file_operations.cpp -o CMakeFiles\mygame.dir\src\file_operations.cpp.s
+
 CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj: CMakeFiles/mygame.dir/flags.make
 CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj: CMakeFiles/mygame.dir/includes_CXX.rsp
 CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj: C:/Users/PC/Desktop/watermelon/src/infix_to_postfix.cpp
 CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj: CMakeFiles/mygame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj"
 	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj -MF CMakeFiles\mygame.dir\src\infix_to_postfix.cpp.obj.d -o CMakeFiles\mygame.dir\src\infix_to_postfix.cpp.obj -c C:\Users\PC\Desktop\watermelon\src\infix_to_postfix.cpp
 
 CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.i: cmake_force
@@ -90,7 +120,7 @@ CMakeFiles/mygame.dir/src/main.cpp.obj: CMakeFiles/mygame.dir/flags.make
 CMakeFiles/mygame.dir/src/main.cpp.obj: CMakeFiles/mygame.dir/includes_CXX.rsp
 CMakeFiles/mygame.dir/src/main.cpp.obj: C:/Users/PC/Desktop/watermelon/src/main.cpp
 CMakeFiles/mygame.dir/src/main.cpp.obj: CMakeFiles/mygame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mygame.dir/src/main.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/mygame.dir/src/main.cpp.obj"
 	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mygame.dir/src/main.cpp.obj -MF CMakeFiles\mygame.dir\src\main.cpp.obj.d -o CMakeFiles\mygame.dir\src\main.cpp.obj -c C:\Users\PC\Desktop\watermelon\src\main.cpp
 
 CMakeFiles/mygame.dir/src/main.cpp.i: cmake_force
@@ -105,7 +135,7 @@ CMakeFiles/mygame.dir/src/operator.cpp.obj: CMakeFiles/mygame.dir/flags.make
 CMakeFiles/mygame.dir/src/operator.cpp.obj: CMakeFiles/mygame.dir/includes_CXX.rsp
 CMakeFiles/mygame.dir/src/operator.cpp.obj: C:/Users/PC/Desktop/watermelon/src/operator.cpp
 CMakeFiles/mygame.dir/src/operator.cpp.obj: CMakeFiles/mygame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mygame.dir/src/operator.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/mygame.dir/src/operator.cpp.obj"
 	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mygame.dir/src/operator.cpp.obj -MF CMakeFiles\mygame.dir\src\operator.cpp.obj.d -o CMakeFiles\mygame.dir\src\operator.cpp.obj -c C:\Users\PC\Desktop\watermelon\src\operator.cpp
 
 CMakeFiles/mygame.dir/src/operator.cpp.i: cmake_force
@@ -120,7 +150,7 @@ CMakeFiles/mygame.dir/src/stack.cpp.obj: CMakeFiles/mygame.dir/flags.make
 CMakeFiles/mygame.dir/src/stack.cpp.obj: CMakeFiles/mygame.dir/includes_CXX.rsp
 CMakeFiles/mygame.dir/src/stack.cpp.obj: C:/Users/PC/Desktop/watermelon/src/stack.cpp
 CMakeFiles/mygame.dir/src/stack.cpp.obj: CMakeFiles/mygame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/mygame.dir/src/stack.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/mygame.dir/src/stack.cpp.obj"
 	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mygame.dir/src/stack.cpp.obj -MF CMakeFiles\mygame.dir\src\stack.cpp.obj.d -o CMakeFiles\mygame.dir\src\stack.cpp.obj -c C:\Users\PC\Desktop\watermelon\src\stack.cpp
 
 CMakeFiles/mygame.dir/src/stack.cpp.i: cmake_force
@@ -133,6 +163,8 @@ CMakeFiles/mygame.dir/src/stack.cpp.s: cmake_force
 
 # Object files for target mygame
 mygame_OBJECTS = \
+"CMakeFiles/mygame.dir/src/compiler.cpp.obj" \
+"CMakeFiles/mygame.dir/src/file_operations.cpp.obj" \
 "CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj" \
 "CMakeFiles/mygame.dir/src/main.cpp.obj" \
 "CMakeFiles/mygame.dir/src/operator.cpp.obj" \
@@ -141,6 +173,8 @@ mygame_OBJECTS = \
 # External object files for target mygame
 mygame_EXTERNAL_OBJECTS =
 
+mygame.exe: CMakeFiles/mygame.dir/src/compiler.cpp.obj
+mygame.exe: CMakeFiles/mygame.dir/src/file_operations.cpp.obj
 mygame.exe: CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj
 mygame.exe: CMakeFiles/mygame.dir/src/main.cpp.obj
 mygame.exe: CMakeFiles/mygame.dir/src/operator.cpp.obj
@@ -149,7 +183,7 @@ mygame.exe: CMakeFiles/mygame.dir/build.make
 mygame.exe: CMakeFiles/mygame.dir/linkLibs.rsp
 mygame.exe: CMakeFiles/mygame.dir/objects1.rsp
 mygame.exe: CMakeFiles/mygame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable mygame.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\PC\Desktop\watermelon\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable mygame.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\mygame.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

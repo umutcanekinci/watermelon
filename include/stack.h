@@ -1,7 +1,5 @@
 #pragma once
-
 #include <string>
-
 using namespace std;
 
 template <typename T>
@@ -16,6 +14,7 @@ public:
     T* get(), * pop();
     bool is_empty();
     bool is_full();
+    int length();
     void display();
     void pop_all_to_string(string *s);
     T* pop_to_string(string *s);

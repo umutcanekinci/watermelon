@@ -1,11 +1,8 @@
-#ifndef FILE_OPERATIONS_CPP
-#define FILE_OPERATIONS_CPP
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-
+#include "file_operations.h"
 using namespace std;
 
 vector<string> read_file(string path) {
@@ -34,5 +31,3 @@ void create_output_file(string path, vector<string> lines) {
 
     file.close();
 }
-
-#endif

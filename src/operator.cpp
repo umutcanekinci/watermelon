@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include "operator.h"
 
 using namespace std;
@@ -38,14 +37,14 @@ int Operator::get_priority() const {
         return -1;
 }
 
-    bool operator==(char c) {
-        return c == get_value();
-    }
+bool Operator::operator==(char c) const {
+    return c == get_value();
+}
 
-    bool operator!=(char c) {
-        return c != get_value();
-    }
-};
+bool Operator::operator!=(char c) const {
+    return c != get_value();
+}
+
 
 ostream & operator<<(ostream & Str, Operator* const & v) { 
     Str << std::string(1, v->get_value()) + " [" + std::to_string(v->get_priority()) + "]";

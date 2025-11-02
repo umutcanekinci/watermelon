@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/mygame.dir/src/compiler.cpp.obj"
+  "CMakeFiles/mygame.dir/src/compiler.cpp.obj.d"
+  "CMakeFiles/mygame.dir/src/file_operations.cpp.obj"
+  "CMakeFiles/mygame.dir/src/file_operations.cpp.obj.d"
   "CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj"
   "CMakeFiles/mygame.dir/src/infix_to_postfix.cpp.obj.d"
   "CMakeFiles/mygame.dir/src/main.cpp.obj"

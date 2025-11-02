@@ -5,6 +5,8 @@ cmake_policy(SET CMP0009 NEW)
 # MY_SOURCES at CMakeLists.txt:34 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/PC/Desktop/watermelon/src/*.cpp")
 set(OLD_GLOB
+  "C:/Users/PC/Desktop/watermelon/src/compiler.cpp"
+  "C:/Users/PC/Desktop/watermelon/src/file_operations.cpp"
   "C:/Users/PC/Desktop/watermelon/src/infix_to_postfix.cpp"
   "C:/Users/PC/Desktop/watermelon/src/main.cpp"
   "C:/Users/PC/Desktop/watermelon/src/operator.cpp"

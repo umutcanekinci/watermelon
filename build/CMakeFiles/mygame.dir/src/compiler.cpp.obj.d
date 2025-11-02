@@ -1,6 +1,5 @@
-CMakeFiles/mygame.dir/src/main.cpp.obj: \
- C:\Users\PC\Desktop\watermelon\src\main.cpp \
- C:/Users/PC/Desktop/watermelon/include/compiler.h \
+CMakeFiles/mygame.dir/src/compiler.cpp.obj: \
+ C:\Users\PC\Desktop\watermelon\src\compiler.cpp \
  C:/msys64/ucrt64/include/c++/15.2.0/string \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -148,4 +147,8 @@ CMakeFiles/mygame.dir/src/main.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/basic_ios.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/istream \
- C:/msys64/ucrt64/include/c++/15.2.0/bits/istream.tcc
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/istream.tcc \
+ C:/Users/PC/Desktop/watermelon/include/infix_to_postfix.h \
+ C:/Users/PC/Desktop/watermelon/include/operator.h \
+ C:/Users/PC/Desktop/watermelon/include/stack.h \
+ C:/Users/PC/Desktop/watermelon/include/compiler.h

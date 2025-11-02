@@ -129,6 +129,54 @@ mygame/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/build
 .PHONY : mygame/fast
 
+src/compiler.obj: src/compiler.cpp.obj
+.PHONY : src/compiler.obj
+
+# target to build an object file
+src/compiler.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/compiler.cpp.obj
+.PHONY : src/compiler.cpp.obj
+
+src/compiler.i: src/compiler.cpp.i
+.PHONY : src/compiler.i
+
+# target to preprocess a source file
+src/compiler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/compiler.cpp.i
+.PHONY : src/compiler.cpp.i
+
+src/compiler.s: src/compiler.cpp.s
+.PHONY : src/compiler.s
+
+# target to generate assembly for a file
+src/compiler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/compiler.cpp.s
+.PHONY : src/compiler.cpp.s
+
+src/file_operations.obj: src/file_operations.cpp.obj
+.PHONY : src/file_operations.obj
+
+# target to build an object file
+src/file_operations.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/file_operations.cpp.obj
+.PHONY : src/file_operations.cpp.obj
+
+src/file_operations.i: src/file_operations.cpp.i
+.PHONY : src/file_operations.i
+
+# target to preprocess a source file
+src/file_operations.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/file_operations.cpp.i
+.PHONY : src/file_operations.cpp.i
+
+src/file_operations.s: src/file_operations.cpp.s
+.PHONY : src/file_operations.s
+
+# target to generate assembly for a file
+src/file_operations.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mygame.dir\build.make CMakeFiles/mygame.dir/src/file_operations.cpp.s
+.PHONY : src/file_operations.cpp.s
+
 src/infix_to_postfix.obj: src/infix_to_postfix.cpp.obj
 .PHONY : src/infix_to_postfix.obj
 
@@ -234,6 +282,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... mygame
+	@echo ... src/compiler.obj
+	@echo ... src/compiler.i
+	@echo ... src/compiler.s
+	@echo ... src/file_operations.obj
+	@echo ... src/file_operations.i
+	@echo ... src/file_operations.s
 	@echo ... src/infix_to_postfix.obj
 	@echo ... src/infix_to_postfix.i
 	@echo ... src/infix_to_postfix.s

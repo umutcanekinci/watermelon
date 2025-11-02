@@ -1,7 +1,7 @@
 #ifndef STACK_TEST_CPP
 #define STACK_TEST_CPP
 
-#include "../src/stack.cpp"
+#include "stack.h"
 
 void test_stack() {
     Stack<int> *s = new Stack<int>();

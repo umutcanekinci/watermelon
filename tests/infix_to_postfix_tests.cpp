@@ -1,7 +1,7 @@
 #ifndef INFIX_TO_POSTFIX_TEST_CPP
 #define INFIX_TO_POSTFIX_TEST_CPP
 
-#include "../src/infix_to_postfix.cpp"
+#include "infix_to_postfix.h"
 #include "tests.cpp"
 
 void test_infix_to_postfix() {

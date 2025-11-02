@@ -1,4 +1,6 @@
-#include "compiler.cpp"
+#include "compiler.h"
+#include "file_operations.h"
+
 using namespace std;
 
 int main() {

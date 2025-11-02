@@ -11,27 +11,11 @@ using namespace std;
 */
 
 template <typename T>
-class Stack {
-    T **array;
-    int top, size;
-public:
-    Stack() {
-        size = 100;
-        array = new T*[size];
-        top = -1;
-    }
-
-    void push(T* value);
-    T* get(), * pop();
-    bool is_empty();
-    bool is_full();
-    void display();
-    void pop_all_to_string(string *s);
-    T* pop_to_string(string *s);
-    int length() {
-        return top + 1;
-    }
-};
+Stack<T>::Stack() {
+    size = 100;
+    array = new T*[size];
+    top = -1;
+}
 
 template <typename T>
 void Stack<T>::push(T* value) {
@@ -56,6 +40,11 @@ bool Stack<T>::is_full() {
 template <typename T>
 T* Stack<T>::get() {
     return is_empty() ? nullptr : array[top];
+}
+
+template <typename T>
+int Stack<T>::length() {
+    return top + 1;
 }
 
 template <typename T>
