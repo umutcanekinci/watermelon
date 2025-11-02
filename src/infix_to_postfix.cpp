@@ -1,9 +1,5 @@
-#ifndef INFIX_TO_POSTFIX_CPP
-#define INFIX_TO_POSTFIX_CPP
-
-#include <iostream>
-#include "operator.cpp"
-#include "stack.cpp"
+#include "operator.h"
+#include "stack.h"
 
 void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Operator *current) {
     // if (current->is_parenthesis()) {
@@ -13,7 +9,7 @@ void add_operator_to_stack(string *postfix, Stack<Operator> *operator_stack, Ope
 
     // If stack is empty or current operator is (, just push it.
     if (operator_stack->is_empty() || *current == '(') {
-        cout << "BIGGG";
+        
         operator_stack->push(current);
         return;
     }
@@ -74,5 +70,3 @@ string InfixToPostfix(string infix) {
     operator_stack->pop_all_to_string(&postfix);
     return postfix;
 }
-
-#endif

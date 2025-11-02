@@ -1,7 +1,5 @@
-#ifndef STACK_CPP
-#define STACK_CPP
-
 #include <iostream>
+#include "stack.h"
 
 using namespace std;
 
@@ -9,27 +7,15 @@ using namespace std;
 * How can we make a generic class Stack for compatible with both classes and primitives?
 * Because we can't use pointers with primitive types
 * Wrappers?
+ "" is a pointer?
 */
 
 template <typename T>
-class Stack {
-    T **array;
-    int top, size;
-public:
-    Stack() {
-        size = 100;
-        array = new T*[size];
-        top = -1;
-    }
-
-    void push(T* value);
-    T* get(), * pop();
-    bool is_empty();
-    bool is_full();
-    void display();
-    void pop_all_to_string(string *s);
-    T* pop_to_string(string *s);
-};
+Stack<T>::Stack() {
+    size = 100;
+    array = new T*[size];
+    top = -1;
+}
 
 template <typename T>
 void Stack<T>::push(T* value) {
@@ -78,5 +64,3 @@ T* Stack<T>::pop_to_string(string *s) {
     *s += value->get_value();
     return value;
 }
-
-#endif
