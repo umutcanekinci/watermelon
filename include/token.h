@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-using namespace std;
 
 class Token {
 public:
@@ -12,13 +11,18 @@ public:
         PARENTHESIS
     };
 
-    Token(Type type, const string& value);
-
+    Token(const std::string& value);
     Type get_type() const;
-    string get_value() const;
-    bool empty() const;
-    static Type determine_type(const string& token);
+    const std::string& get_value() const;
+    void set_value(const std::string& new_value);
+    static bool is_number(const std::string& s);
+    bool is_number() const;
+    bool is_operator() const;
+    static bool is_operator(const std::string& s);
+    static Type determine_type(const std::string& token);
+    bool is_empty() const;
+    bool is_valid_variable() const;
 private:
     Type type;
-    string value;
+    std::string value;
 };

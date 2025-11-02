@@ -1,16 +1,24 @@
 #include "compiler.h"
 #include "file_operations.h"
-#include "infix_to_postfix.h"
-#include "function_tester.h"
+#include <iostream>
 
 using namespace std;
-
 
 int main() {
     Compiler* compiler = new Compiler();
     string input_path = RESOURCES_PATH "test.cpp";
-    vector<string> output = compiler->compile_file(input_path);
-    create_output_file(input_path, output);
+    string output = compiler->compile_file(input_path);
+    
+    vector<string> output_lines;
+    size_t pos = 0;
+    while ((pos = output.find('\n')) != string::npos) {
+        output_lines.push_back(output.substr(0, pos));
+        output.erase(0, pos + 1);
+    }
+    
+    for (const auto& line : output_lines) {
+        cout << line << endl;
+    }
 
     return 0;
 }

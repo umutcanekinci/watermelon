@@ -1,3 +1,0 @@
-C:/Users/PC/Desktop/watermelon/build/CMakeFiles/mygame.dir
-C:/Users/PC/Desktop/watermelon/build/CMakeFiles/edit_cache.dir
-C:/Users/PC/Desktop/watermelon/build/CMakeFiles/rebuild_cache.dir

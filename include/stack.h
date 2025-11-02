@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
-using namespace std;
+
+class Operator;
 
 template <typename T>
 class Stack {
@@ -17,8 +18,8 @@ public:
     bool is_full();
     int length();
     void display();
-    void pop_all_to_string(string *s);
-    T* pop_to_string(string *s);
+    void pop_all_to_string(std::string *s);
+    T* pop_to_string(std::string *s);
 };
 
 /*
@@ -68,19 +69,19 @@ int Stack<T>::length() {
 template <typename T>
 void Stack<T>::display() {
     for(int i=0; i<=top; i++) {
-        cout << array[i] << " ";
+        std::cout << array[i] << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 
 template <typename T>
-void Stack<T>::pop_all_to_string(string *s) {
+void Stack<T>::pop_all_to_string(std::string *s) {
     while (!is_empty())
         *s += pop()->get_value();
 }
 
 template <typename T>
-T* Stack<T>::pop_to_string(string *s) {
+T* Stack<T>::pop_to_string(std::string *s) {
     if (is_empty())
         return nullptr;
     T* value = pop();
