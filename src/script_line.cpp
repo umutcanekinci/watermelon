@@ -83,6 +83,12 @@ void ScriptLine::tokenize() {
     tokens.push_back(new Token(current_token));
 }
 
+pair<string, int> ScriptLine::get_assignment_variable_and_value(Memory * memory) {
+    string var_name = get_assignment_variable_token()->get_value();
+    int result = get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate();
+    return make_pair(var_name, result);
+}
+
 Token *ScriptLine::get_assignment_variable_token() {
     if (!is_valid_assignment())
         throw runtime_error("Invalid assignment variable token");

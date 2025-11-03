@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+class Memory;
 class Token;
 class Expression;
 
@@ -19,6 +20,7 @@ public:
     bool is_valid_assignment() const;
     void tokenize();
     void substitute_variables(const std::vector<std::pair<std::string, int>>& variables);
+    std::pair<std::string, int> get_assignment_variable_and_value(Memory *memory);
     Token *get_assignment_variable_token();
     Expression *get_assignment_expression();
     std::string to_string() const;

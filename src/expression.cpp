@@ -10,15 +10,6 @@ Expression::Expression(vector<Token *> tokens) {
     this->tokens = tokens;
 }
 
-int get_variable_value(const string& varName, const vector<pair<string, int>>& variables) {
-    for (const auto& var : variables) {
-        if (var.first == varName) {
-            return var.second;
-        }
-    }
-    return NULL;
-}
-
 Expression *Expression::substitute_variables(Memory *memory) {
     for (size_t i = 0; i < tokens.size(); ++i) {
         Token* token = tokens[i];

@@ -1,15 +1,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stdexcept>
 #include "compiler.h"
 #include "file_operations.h"
-#include "operator.h"
-#include "token.h"
 #include "script_line.h"
-#include "stack.h"
-#include "expression.h"
-#include <stdexcept>
 #include "memory.h"
+#include "expression.h"
+#include "token.h"
 using namespace std;
 
 Compiler::Compiler() {
@@ -20,11 +18,8 @@ string Compiler::compile_line(ScriptLine *line) {
     if (line->is_empty() || line->is_comment())
         return "";
 
-    if (line->is_assignment()) {
-        string var_name = line->get_assignment_variable_token()->get_value();
-        int result = line->get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate();
-        memory->set(var_name, result);
-    }
+    if (line->is_assignment())
+        memory->set(line->get_assignment_variable_and_value(memory));
 
     return "";
 }
