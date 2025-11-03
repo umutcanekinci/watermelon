@@ -5,15 +5,17 @@
 
 class Token;
 class Operator;
+class Memory;
 
+// Expression is a list of tokens which can be evaluated to a value.
 class Expression {
 private:
     std::vector<Token *> tokens;
 public:
     Expression(std::vector<Token *> tokens);
-    void substitute_variables(const std::vector<std::pair<std::string, int>>& variables);
+    Expression *substitute_variables(Memory *memory);
     int evaluate();
-    std::vector<Token *> to_postfix();
+    Expression *to_postfix();
     bool check_parenthesis(std::string &infix);
     void add_operator_to_stack(std::vector<Token *> *postfix, Stack<Operator> *operator_stack, Operator *current);
     void infix_to_postfix_char(Token * current, std::vector<Token *> &postfix, int i, Stack<Operator> *operator_stack);

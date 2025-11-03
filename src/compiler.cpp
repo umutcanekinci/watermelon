@@ -9,31 +9,21 @@
 #include "stack.h"
 #include "expression.h"
 #include <stdexcept>
+#include "memory.h"
 using namespace std;
+
+Compiler::Compiler() {
+    memory = new Memory();
+}
 
 string Compiler::compile_line(ScriptLine *line) {
     if (line->is_empty() || line->is_comment())
         return "";
 
     if (line->is_assignment()) {
-        Token *variable_token = line->get_assignment_variable_token();
-        string var_name = variable_token->get_value();
-        Expression *expression = line->get_assignment_expression();
-        expression->substitute_variables(variables);
-        int result = expression->evaluate();
-        // string postfix = expression->to_postfix();
-        
-        // Assignment handling
-        for (auto& var : variables) {
-            if (var.first == var_name) {
-                cout << "----Updating variable " << var_name << " to value " << result << endl;
-                var.second = result;
-                return var_name + " = " + to_string(result) + "\n";
-            }
-        }
-        cout << "----Creating variable " << var_name << " with value " << result << endl;
-        variables.push_back(make_pair(var_name, result));
-        return var_name + " = " + to_string(result) + "\n";
+        string var_name = line->get_assignment_variable_token()->get_value();
+        int result = line->get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate();
+        memory->set(var_name, result);
     }
 
     return "";

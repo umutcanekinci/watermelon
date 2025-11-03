@@ -3,6 +3,7 @@
 #include "token.h"
 #include "operator.h"
 #include "stack.h"
+#include "memory.h"
 using namespace std;
 
 Expression::Expression(vector<Token *> tokens) {
@@ -18,18 +19,19 @@ int get_variable_value(const string& varName, const vector<pair<string, int>>& v
     return NULL;
 }
 
-void Expression::substitute_variables(const vector<pair<string, int>>& variables) {
+Expression *Expression::substitute_variables(Memory *memory) {
     for (size_t i = 0; i < tokens.size(); ++i) {
         Token* token = tokens[i];
         if (!token)
             continue;
         if (token->get_type() == Token::VARIABLE) {
-            auto value = get_variable_value(token->get_value(), variables);
+            auto value = memory->get(token->get_value());
             if (value != NULL) {
                 token->set_value(std::to_string(value));
             }
         }
     }
+    return this;
 }
 
 int char_to_operator(int operand1, char op, int operand2) {
@@ -59,12 +61,14 @@ int char_to_operator(int operand1, char op, int operand2) {
 }
 
 int Expression::evaluate() {
-    vector<Token *> postfix = to_postfix();
+    // TODO Assuming expression is in postfix notation
+    // if not, give error or return later
+
     Stack<int> *value_stack = new Stack<int>();
 
-    for (int i=0; i<postfix.size(); i++) {
-        Token* character = postfix[i];
-        
+    for (int i=0; i<tokens.size(); i++) {
+        Token* character = tokens[i];
+
         if (!character->is_operator()) {
             if (!character->is_number())
                 throw std::runtime_error("Unknown variable in expression " + to_string());
@@ -149,7 +153,7 @@ void Expression::infix_to_postfix_char(Token *current, vector<Token *> &postfix,
         postfix.push_back(current);
 }
 
-vector<Token *> Expression::to_postfix() {
+Expression *Expression::to_postfix() {
     // Creating stacks
     vector<Token *> postfix;
     Stack<Operator> *operator_stack = new Stack<Operator>();
@@ -165,8 +169,8 @@ vector<Token *> Expression::to_postfix() {
     for (; !operator_stack->is_empty(); ) {
         postfix.push_back(new Token(string(1, operator_stack->pop()->get_value())));
     }
-
-    return postfix;
+    
+    return new Expression(postfix);
 }
 
 string Expression::to_string() const {
