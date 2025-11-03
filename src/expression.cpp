@@ -10,12 +10,24 @@ Expression::Expression(vector<Token *> tokens) {
     this->tokens = tokens;
 }
 
+Expression::Expression(Stack<Token *> tokens) {
+    this->tokens = vector<Token *>();
+    vector <Token *> temp_tokens;
+    while (!tokens.is_empty()) {
+        temp_tokens.push_back(tokens.pop());
+    }
+    while (!temp_tokens.empty()) {
+        this->tokens.push_back(temp_tokens.back());
+        temp_tokens.pop_back();
+    }
+}
+
 Expression *Expression::substitute_variables(Memory *memory) {
     for (size_t i = 0; i < tokens.size(); ++i) {
         Token* token = tokens[i];
         if (!token)
             continue;
-            
+
         if (token->is_variable()) {
             auto value = memory->get(token->get_value());
             if (value != NULL) {
@@ -100,7 +112,7 @@ bool Expression::check_parenthesis(string &infix) {
     return parenthesis_stack.is_empty();
 }
 
-void Expression::add_operator_to_stack(Operator *current, vector<Token *> *postfix, Stack<Operator *> *operator_stack) {
+void Expression::add_operator_to_stack(Operator *current, Stack<Token *> *postfix, Stack<Operator *> *operator_stack) {
  
     // If stack is empty or current operator is (, just push it.
     if (operator_stack->is_empty() || *current == '(') {        
@@ -117,7 +129,7 @@ void Expression::add_operator_to_stack(Operator *current, vector<Token *> *postf
             return;
         }
         //operator_stack->pop_to_string(postfix);
-        postfix->push_back(new Token(string(1, operator_stack->pop()->get_value())));
+        postfix->push(new Token(string(1, operator_stack->pop()->get_value())));
         add_operator_to_stack(current, postfix, operator_stack);
         return;
     }
@@ -130,7 +142,7 @@ void Expression::add_operator_to_stack(Operator *current, vector<Token *> *postf
         }
 
         //operator_stack->pop_to_string(postfix);
-        postfix->push_back(new Token(string(1, operator_stack->pop()->get_value())));
+        postfix->push(new Token(string(1, operator_stack->pop()->get_value())));
         add_operator_to_stack(current, postfix, operator_stack);
         return;
     }
@@ -138,16 +150,16 @@ void Expression::add_operator_to_stack(Operator *current, vector<Token *> *postf
     operator_stack->push(current);
 }
 
-void Expression::infix_to_postfix_char(Token *current, vector<Token *> &postfix, int i, Stack<Operator *> *operator_stack) {
+void Expression::infix_to_postfix_char(Token *current, Stack<Token *> &postfix, int i, Stack<Operator *> *operator_stack) {
     if(current->is_operator())
         add_operator_to_stack(new Operator(current->get_value()[0]), &postfix, operator_stack);
     else
-        postfix.push_back(current);
+        postfix.push(current);
 }
 
 Expression *Expression::to_postfix() {
     // Creating stacks
-    vector<Token *> postfix;
+    Stack<Token *> postfix;
     Stack<Operator *> *operator_stack = new Stack<Operator *>();
 
     // Parsing infix
@@ -159,7 +171,7 @@ Expression *Expression::to_postfix() {
     // Move remaining operators to postfix
     //operator_stack->pop_all_to_string(&postfix);
     for (; !operator_stack->is_empty(); ) {
-        postfix.push_back(new Token(string(1, operator_stack->pop()->get_value())));
+        postfix.push(new Token(string(1, operator_stack->pop()->get_value())));
     }
     
     return new Expression(postfix);
