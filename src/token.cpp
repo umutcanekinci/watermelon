@@ -40,6 +40,10 @@ bool Token::is_number() const {
     return is_number(value);
 }
 
+bool Token::is_variable() const {
+    return type == VARIABLE;
+}
+
 bool Token::is_valid_variable() const {
     if (value.empty() || std::isdigit(value[0])) {
         return false;

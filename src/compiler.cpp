@@ -15,9 +15,6 @@ Compiler::Compiler() {
 }
 
 string Compiler::compile_line(ScriptLine *line) {
-    if (line->is_empty() || line->is_comment())
-        return "";
-
     if (line->is_assignment())
         memory->set(line->get_assignment_variable_and_value(memory));
 

@@ -15,7 +15,8 @@ Expression *Expression::substitute_variables(Memory *memory) {
         Token* token = tokens[i];
         if (!token)
             continue;
-        if (token->get_type() == Token::VARIABLE) {
+            
+        if (token->is_variable()) {
             auto value = memory->get(token->get_value());
             if (value != NULL) {
                 token->set_value(std::to_string(value));
@@ -65,32 +66,32 @@ int Expression::evaluate() {
                 throw std::runtime_error("Unknown variable in expression " + to_string());
 
             int value = std::stoi(character->get_value());
-            value_stack->push(&value); // TODO
+            value_stack->push(value);
             continue;
         }
 
         if (value_stack->is_empty() || value_stack->length() < 2)
             throw std::runtime_error("Invalid expression");
 
-        int val1 = *value_stack->pop();
-        int val2 = *value_stack->pop();
+        int val1 = value_stack->pop();
+        int val2 = value_stack->pop();
 
         int result = char_to_operator(val2, character->get_value()[0], val1);
 
-        value_stack->push(&result);
+        value_stack->push(result);
     }
 
-    return *value_stack->pop();
+    return value_stack->pop();
 }
 
 bool Expression::check_parenthesis(string &infix) {
-    Stack<Operator> parenthesis_stack = Stack<Operator>();
+    Stack<Operator *> parenthesis_stack = Stack<Operator *>();
 
     for (int i=0; i<infix.length(); i++) {
-        Operator character = Operator(infix[i]);
-        if (character == '(')
-            parenthesis_stack.push(&character);
-        else if (character == ')') {
+        Operator *character = new Operator(infix[i]);
+        if (*character == '(')
+            parenthesis_stack.push(character);
+        else if (*character == ')') {
             if (parenthesis_stack.is_empty() || parenthesis_stack.get()->get_value() != '(')
                 return false;
             parenthesis_stack.pop();
@@ -99,8 +100,8 @@ bool Expression::check_parenthesis(string &infix) {
     return parenthesis_stack.is_empty();
 }
 
-void Expression::add_operator_to_stack(vector<Token *> *postfix, Stack<Operator> *operator_stack, Operator *current) {
-
+void Expression::add_operator_to_stack(Operator *current, vector<Token *> *postfix, Stack<Operator *> *operator_stack) {
+ 
     // If stack is empty or current operator is (, just push it.
     if (operator_stack->is_empty() || *current == '(') {        
         operator_stack->push(current);
@@ -117,7 +118,7 @@ void Expression::add_operator_to_stack(vector<Token *> *postfix, Stack<Operator>
         }
         //operator_stack->pop_to_string(postfix);
         postfix->push_back(new Token(string(1, operator_stack->pop()->get_value())));
-        add_operator_to_stack(postfix, operator_stack, current);
+        add_operator_to_stack(current, postfix, operator_stack);
         return;
     }
 
@@ -130,16 +131,16 @@ void Expression::add_operator_to_stack(vector<Token *> *postfix, Stack<Operator>
 
         //operator_stack->pop_to_string(postfix);
         postfix->push_back(new Token(string(1, operator_stack->pop()->get_value())));
-        add_operator_to_stack(postfix, operator_stack, current);
+        add_operator_to_stack(current, postfix, operator_stack);
         return;
     }
 
     operator_stack->push(current);
 }
 
-void Expression::infix_to_postfix_char(Token *current, vector<Token *> &postfix, int i, Stack<Operator> *operator_stack) {
+void Expression::infix_to_postfix_char(Token *current, vector<Token *> &postfix, int i, Stack<Operator *> *operator_stack) {
     if(current->is_operator())
-        add_operator_to_stack(&postfix, operator_stack, new Operator(current->get_value()[0]));
+        add_operator_to_stack(new Operator(current->get_value()[0]), &postfix, operator_stack);
     else
         postfix.push_back(current);
 }
@@ -147,7 +148,7 @@ void Expression::infix_to_postfix_char(Token *current, vector<Token *> &postfix,
 Expression *Expression::to_postfix() {
     // Creating stacks
     vector<Token *> postfix;
-    Stack<Operator> *operator_stack = new Stack<Operator>();
+    Stack<Operator *> *operator_stack = new Stack<Operator *>();
 
     // Parsing infix
     for(int i=0; i < tokens.size(); i++) {

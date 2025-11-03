@@ -20,7 +20,7 @@ bool ScriptLine::is_empty() const {
 }
 
 bool ScriptLine::is_assignment() const {
-    return line.find('=') != string::npos;
+    return !is_empty() && !is_comment() && line.find('=') != string::npos;
 }
 
 // Invalid lines should print error during compilation

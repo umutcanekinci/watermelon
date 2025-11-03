@@ -22,6 +22,7 @@ public:
     static Type determine_type(const std::string& token);
     bool is_empty() const;
     bool is_valid_variable() const;
+    bool is_variable() const;
 private:
     Type type;
     std::string value;
