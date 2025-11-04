@@ -1,7 +1,6 @@
 #include <string>
 #include "expression.h"
 #include "token.h"
-#include "operator.h"
 #include "stack.h"
 #include "memory.h"
 using namespace std;
@@ -10,16 +9,60 @@ Expression::Expression(vector<Token *> tokens) {
     this->tokens = tokens;
 }
 
-Expression::Expression(Stack<Token *> tokens) {
-    this->tokens = vector<Token *>();
-    vector <Token *> temp_tokens;
-    while (!tokens.is_empty()) {
-        temp_tokens.push_back(tokens.pop());
+Expression *Expression::to_postfix() {
+    Stack<Token *> postfix;
+    Stack<Token *> *operator_stack = new Stack<Token *>();
+
+    for(int i=0; i < tokens.size(); i++) {
+        Token* token = tokens[i];
+        if(token->is_operator()) {
+            add_operator_to_stack(token, &postfix, operator_stack);
+            continue;
+        }
+        
+        postfix.push(token);
     }
-    while (!temp_tokens.empty()) {
-        this->tokens.push_back(temp_tokens.back());
-        temp_tokens.pop_back();
+
+    // Move remaining operators to postfix
+    operator_stack->pop_all_to_other(&postfix);
+    return new Expression(postfix.to_vector());
+}
+
+void Expression::add_operator_to_stack(Token *current, Stack<Token *> *postfix, Stack<Token *> *operator_stack) {
+ 
+    // If stack is empty or current operator is (, just push it.
+    if (operator_stack->is_empty() || current->get_value() == "(") {
+        operator_stack->push(current);
+        return;
     }
+
+    // If operator is closing parenthesis, all operators should popped to the string.
+    Token *top = operator_stack->get();
+    
+    if (current->get_value() == ")") {
+        if (top->get_value() == "(") {
+            operator_stack->pop();
+            return;
+        }
+
+        operator_stack->pop_to_other(postfix);
+        add_operator_to_stack(current, postfix, operator_stack);
+        return;
+    }
+
+    // If current <= top, pop the top to the string and use recursion to check new top(s).
+    if (current->get_precedence() >= top->get_precedence()) {
+        if (top->get_value() == "(") {
+            operator_stack->push(current);
+            return;
+        }
+
+        operator_stack->pop_to_other(postfix);
+        add_operator_to_stack(current, postfix, operator_stack);
+        return;
+    }
+
+    operator_stack->push(current);
 }
 
 Expression *Expression::substitute_variables(Memory *memory) {
@@ -38,9 +81,40 @@ Expression *Expression::substitute_variables(Memory *memory) {
     return this;
 }
 
-int char_to_operator(int operand1, char op, int operand2) {
+int Expression::evaluate() {
+    // TODO Assuming expression is in postfix notation
+    // if not, give error or return later
+
+    Stack<int> *value_stack = new Stack<int>();
+
+    for (int i=0; i<tokens.size(); i++) {
+        Token* character = tokens[i];
+        if (!character->is_operator()) {
+            if (!character->is_number())
+                throw std::runtime_error("Unknown variable in expression " + to_string());
+
+            int value = std::stoi(character->get_value());
+            value_stack->push(value);
+            continue;
+        }
+
+        if (value_stack->is_empty() || value_stack->length() < 2)
+            throw std::runtime_error("Invalid expression");
+
+        int val1 = value_stack->pop();
+        int val2 = value_stack->pop();
+
+        int result = apply_operator(val2, character->get_value()[0], val1);
+
+        value_stack->push(result);
+    }
+
+    return value_stack->pop();
+}
+
+int apply_operator(int operand1, char op, int operand2) {
     cout << "Evaluating: " << operand2 << " " << op << " " << operand1 << endl;
-    
+    // operator_string, operator_precedence, operator_func
     switch (op)
     {
         case '+':
@@ -58,123 +132,26 @@ int char_to_operator(int operand1, char op, int operand2) {
             }
 
             return operand2 / operand1;
-        
+            
         default:
             return 0;
     }
 }
 
-int Expression::evaluate() {
-    // TODO Assuming expression is in postfix notation
-    // if not, give error or return later
-
-    Stack<int> *value_stack = new Stack<int>();
-
-    for (int i=0; i<tokens.size(); i++) {
-        Token* character = tokens[i];
-
-        if (!character->is_operator()) {
-            if (!character->is_number())
-                throw std::runtime_error("Unknown variable in expression " + to_string());
-
-            int value = std::stoi(character->get_value());
-            value_stack->push(value);
-            continue;
-        }
-
-        if (value_stack->is_empty() || value_stack->length() < 2)
-            throw std::runtime_error("Invalid expression");
-
-        int val1 = value_stack->pop();
-        int val2 = value_stack->pop();
-
-        int result = char_to_operator(val2, character->get_value()[0], val1);
-
-        value_stack->push(result);
-    }
-
-    return value_stack->pop();
-}
-
 bool Expression::check_parenthesis(string &infix) {
-    Stack<Operator *> parenthesis_stack = Stack<Operator *>();
+    Stack<Token *> parenthesis_stack = Stack<Token *>();
 
     for (int i=0; i<infix.length(); i++) {
-        Operator *character = new Operator(infix[i]);
-        if (*character == '(')
+        Token *character = new Token(string(1, infix[i]));
+        if (character->get_value() == "(")
             parenthesis_stack.push(character);
-        else if (*character == ')') {
-            if (parenthesis_stack.is_empty() || parenthesis_stack.get()->get_value() != '(')
+        else if (character->get_value() == ")") {
+            if (parenthesis_stack.is_empty() || parenthesis_stack.get()->get_value() != "(")
                 return false;
             parenthesis_stack.pop();
         }
     }
     return parenthesis_stack.is_empty();
-}
-
-void Expression::add_operator_to_stack(Operator *current, Stack<Token *> *postfix, Stack<Operator *> *operator_stack) {
- 
-    // If stack is empty or current operator is (, just push it.
-    if (operator_stack->is_empty() || *current == '(') {        
-        operator_stack->push(current);
-        return;
-    }
-
-    // If operator is closing parenthesis, all operators should popped to the string.
-    Operator* top = operator_stack->get();
-    
-    if (*current == ')') {
-        if (*top == '(') {
-            operator_stack->pop();
-            return;
-        }
-        //operator_stack->pop_to_string(postfix);
-        postfix->push(new Token(string(1, operator_stack->pop()->get_value())));
-        add_operator_to_stack(current, postfix, operator_stack);
-        return;
-    }
-
-    // If current <= top, pop the top to the string and use recursion to check new top(s).
-    if (current->get_priority() >= top->get_priority()) {
-        if (*top == '(') {
-            operator_stack->push(current);
-            return;
-        }
-
-        //operator_stack->pop_to_string(postfix);
-        postfix->push(new Token(string(1, operator_stack->pop()->get_value())));
-        add_operator_to_stack(current, postfix, operator_stack);
-        return;
-    }
-
-    operator_stack->push(current);
-}
-
-void Expression::infix_to_postfix_char(Token *current, Stack<Token *> &postfix, int i, Stack<Operator *> *operator_stack) {
-    if(current->is_operator())
-        add_operator_to_stack(new Operator(current->get_value()[0]), &postfix, operator_stack);
-    else
-        postfix.push(current);
-}
-
-Expression *Expression::to_postfix() {
-    // Creating stacks
-    Stack<Token *> postfix;
-    Stack<Operator *> *operator_stack = new Stack<Operator *>();
-
-    // Parsing infix
-    for(int i=0; i < tokens.size(); i++) {
-        Token* token = tokens[i];
-        infix_to_postfix_char(token, postfix, i, operator_stack);
-    }
-
-    // Move remaining operators to postfix
-    //operator_stack->pop_all_to_string(&postfix);
-    for (; !operator_stack->is_empty(); ) {
-        postfix.push(new Token(string(1, operator_stack->pop()->get_value())));
-    }
-    
-    return new Expression(postfix);
 }
 
 string Expression::to_string() const {

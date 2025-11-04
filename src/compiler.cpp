@@ -30,8 +30,8 @@ string Compiler::compile_file(string path) {
         if (script_line.is_empty() || script_line.is_comment())
             continue;
 
-        if (!script_line.is_valid())
-            throw runtime_error("Syntax error in " + script_line.to_string());
+        // if (!script_line.is_valid())
+            // throw runtime_error("Syntax error in " + script_line.to_string());
         string result = compile_line(&script_line);
         if (result.empty())
             continue;

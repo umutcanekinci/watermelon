@@ -3,27 +3,22 @@
 #include <vector>
 
 class Token {
+private:
+    std::string value;
 public:
-    enum Type {
-        NUMBER,
-        OPERATOR,
-        VARIABLE,
-        PARENTHESIS
-    };
-
     Token(const std::string& value);
-    Type get_type() const;
     const std::string& get_value() const;
     void set_value(const std::string& new_value);
-    static bool is_number(const std::string& s);
+    int get_precedence() const;
+
+    bool is_empty() const;
+    bool is_variable() const;
     bool is_number() const;
     bool is_operator() const;
-    static bool is_operator(const std::string& s);
-    static Type determine_type(const std::string& token);
-    bool is_empty() const;
     bool is_valid_variable() const;
-    bool is_variable() const;
-private:
-    Type type;
-    std::string value;
 };
+
+// ostream & operator<<(ostream & Str, Operator* const & v) { 
+//     Str << v->get_value() + " [" + std::to_string(v->get_precedence()) + "]";
+//     return Str;
+// }

@@ -31,7 +31,7 @@ bool ScriptLine::is_valid() const {
      
     // Check variable naming
     for (const Token* token : tokens) {
-        if (token->get_type() == Token::VARIABLE && !token->is_valid_variable())
+        if (token->is_variable() && !token->is_valid_variable())
             return false;
     }
 
@@ -42,7 +42,7 @@ bool ScriptLine::is_valid_assignment() const {
     if (!is_assignment() || tokens.empty())
         return false;
 
-    if (tokens[0]->get_type() != Token::VARIABLE)
+    if (!tokens[0]->is_variable())
         return false;
 
     if (tokens[1]->get_value() != "=")
@@ -66,7 +66,7 @@ void ScriptLine::tokenize() {
             continue;
 
         Token token(string(1, ch));
-        if (token.get_type() == Token::OPERATOR) {
+        if (token.is_operator()) {
             if (!current_token.empty()) {
                 token.set_value(current_token);
                 tokens.push_back(new Token(current_token));
@@ -104,6 +104,7 @@ Expression *ScriptLine::get_assignment_expression() {
     for (size_t i = 2; i < tokens.size(); i++) {
         expr_tokens.push_back(tokens[i]);
     }
+    
     return new Expression(expr_tokens);
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Operator;
 
@@ -21,6 +22,7 @@ public:
     void display();
     void pop_all_to_other(Stack<T> *other);
     T pop_to_other(Stack<T> *other);
+    std::vector<T> to_vector();
 };
 
 /*
@@ -92,4 +94,13 @@ T Stack<T>::pop_to_other(Stack<T> *other) {
     T value = pop();
     other->push(value);
     return value;
+}
+
+template <typename T>
+std::vector<T> Stack<T>::to_vector() {
+    std::vector<T> result;
+    for (int i=0; i <= top; i++) {
+        result.push_back(array[i]);
+    }
+    return result;
 }

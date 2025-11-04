@@ -15,7 +15,7 @@ int Memory::get(const string& name) const {
 }
 
 void Memory::set(const string& name, int value) {
-    cout << "[MEMORY] Setting variable " << name << " with value " << value << endl;
+    cout << "[MEMORY] "<< name << " = " << value << endl;
     variables[name] = value;
 }
 
