@@ -12,11 +12,7 @@ ScriptLine::ScriptLine(int number, const string& line) {
     tokenize();
 }
 
-/* Parse line to the operators, numbers, and variables
-a=5 -> ["a", "=", "5"]
-a=a+b -> ["a", "=", "a", "+", "b"]
-var = var1 + var2 * 10 -> ["var", "=", "var1", "+", "var2", "*", "10"]
-*/
+/* Parse line to the operators, numbers, and variables */
 void ScriptLine::tokenize() {
     string current_token = "";
     for (char ch : line) {
@@ -49,10 +45,6 @@ bool ScriptLine::is_empty() const {
     return line.empty();
 }
 
-bool ScriptLine::is_assignment() const {
-    return !is_empty() && !is_comment() && line.find('=') != string::npos;
-}
-
 // Invalid lines should print error during compilation
 bool ScriptLine::is_valid() const {
     // Check assignment validity
@@ -66,6 +58,10 @@ bool ScriptLine::is_valid() const {
     }
 
     return true;
+}
+
+bool ScriptLine::is_assignment() const {
+    return !is_empty() && !is_comment() && line.find('=') != string::npos;
 }
 
 bool ScriptLine::is_valid_assignment() const {
@@ -85,29 +81,12 @@ bool ScriptLine::is_valid_assignment() const {
 }
 
 void ScriptLine::run(Memory *memory) {
-    Expression *expr = new Expression(std::vector<Token *>(tokens));
-    expr->substitute_variables(memory)->to_postfix()->evaluate(memory);
+    Expression infix = Expression(tokens);
+    cout << "[PARSE] Infix  : " << infix.to_string() << endl;
+    Expression *postfix = infix.to_postfix();
+    cout << "[PARSE] Postfix: " << postfix->to_string() << endl;
+    postfix->evaluate(memory);
 }
-
-// pair<string, Value> ScriptLine::get_assignment_variable_and_value(Memory * memory) {
-//     string var_name = get_assignment_variable_token()->get_value();
-//     Value result = get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate(memory);
-//     return make_pair(var_name, result);
-// }
-
-// Token *ScriptLine::get_assignment_variable_token() {
-//     if (!is_valid_assignment())
-//         throw runtime_error("Invalid assignment variable token");
-
-//     return tokens[0];
-// }
-
-// Expression *ScriptLine::get_assignment_expression() {
-//     if (!is_valid_assignment())
-//         throw runtime_error("Invalid assignment expression");
-
-//     return new Expression(std::vector<Token *>(tokens.begin() + 2, tokens.end()));
-// }
 
 string ScriptLine::to_string() const {
     string result = "Line " + std::to_string(number) + ": ";

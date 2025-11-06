@@ -13,36 +13,38 @@ Expression::Expression(vector<Token *> tokens) {
 
 Expression *Expression::to_postfix() {
     Stack<Token *> postfix;
-    Stack<Token *> *operator_stack = new Stack<Token *>();
+    Stack<Token *> *operators = new Stack<Token *>();
 
-    for(int i=0; i < tokens.size(); i++) {
-        Token* token = tokens[i];
+    for(auto token : tokens) {
         if(token->is_operator()) {
-            add_operator_to_stack(token, &postfix, operator_stack);
+            add_operator_to_stack(token, &postfix, operators);
             continue;
         }
         
         postfix.push(token);
     }
 
-    // Move remaining operators to postfix
-    operator_stack->pop_all_to_other(&postfix);
+    operators->pop_all_to_other(&postfix); // Move remaining operators to postfix
     return new Expression(postfix.to_vector());
 }
 
 void Expression::add_operator_to_stack(Token *current, Stack<Token *> *postfix, Stack<Token *> *operator_stack) {
- 
+    // (, ) are dont have precedence but used in the algorithm, because they dont have oparation
+    
+    string current_value = current->get_value();
+
     // If stack is empty or current operator is (, just push it.
-    if (operator_stack->is_empty() || current->get_value() == "(") {
+    if (operator_stack->is_empty() || current_value == "(") {
         operator_stack->push(current);
         return;
     }
 
     // If operator is closing parenthesis, all operators should popped to the string.
     Token *top = operator_stack->get();
-    
-    if (current->get_value() == ")") {
-        if (top->get_value() == "(") {
+    string top_value = top->get_value();
+
+    if (current_value == ")") {
+        if (top_value == "(") {
             operator_stack->pop();
             return;
         }
@@ -52,13 +54,17 @@ void Expression::add_operator_to_stack(Token *current, Stack<Token *> *postfix, 
         return;
     }
 
-    // If current <= top, pop the top to the string and use recursion to check new top(s).
-    if (current->get_precedence() >= top->get_precedence()) {
-        if (top->get_value() == "(") {
-            operator_stack->push(current);
-            return;
-        }
+    if (top_value == "(") {
+        operator_stack->push(current);
+        return;
+    }
 
+    // Getting precedences
+    auto current_presedence = OperatorTable::get(current_value)->precedence;
+    auto top_precedence = OperatorTable::get(top_value)->precedence;
+
+    // If current <= top, pop the top to the string and use recursion to check new top(s).
+    if (current_presedence <= top_precedence) {
         operator_stack->pop_to_other(postfix);
         add_operator_to_stack(current, postfix, operator_stack);
         return;
@@ -67,96 +73,64 @@ void Expression::add_operator_to_stack(Token *current, Stack<Token *> *postfix, 
     operator_stack->push(current);
 }
 
-Expression *Expression::substitute_variables(Memory *memory) {
-    for (size_t i = 0; i < tokens.size(); ++i) {
-        Token* token = tokens[i];
-        if (!token)
-            continue;
-
-        if (token->is_variable()) {
-            auto value = memory->get(token->get_value());
-            if (!value.is_null()) {
-                token->set_value(value.to_string());
-            }
-        }
-    }
-    return this;
-}
-
 //int apply_operator(int operand1, char op, int operand2) {
-Value apply_operator(Value left, const std::string &op, Value right, Memory *memory) {
-    auto it = OPERATOR_TABLE.find(op);
-    if (it == OPERATOR_TABLE.end())
-        throw std::runtime_error("Unknown operator: " + op);
-    return it->second.func(left, right, memory);
-    
-    // cout << "Evaluating: " << operand2 << " " << op << " " << operand1 << endl;
-    // // operator_string, operator_precedence, operator_func
-    // switch (op)
-    // {
-    //     case '+':
-    //         return operand2 + operand1;
-
-    //     case '-':
-    //         return operand2 - operand1;
-            
-    //     case '*':
-    //         return operand2 * operand1;
-
-    //     case '/':
-    //         if (operand1 == 0) {
-    //             throw std::runtime_error("Division by zero");
-    //         }
-
-    //         return operand2 / operand1;
-            
-    //     default:
-    //         return 0;
-    // }
+Value apply_operator(const std::string &op, Value left, Value right, Memory* memory) {
+    auto it = OperatorTable::get(op);
+    return it->func(left, right, memory);
 }
 
 //int Expression::evaluate() {
 Value Expression::evaluate(Memory *memory) {
     // TODO Assuming expression is in postfix notation
     // if not, give error or return later
-
-    // Stack<int> *value_stack = new Stack<int>();
     Stack<Value> values;
 
     for (auto token : tokens) {
+        string token_value = token->get_value();
         if (!token->is_operator()) {
-            /*
-            if (!token->is_number())
-                throw std::runtime_error("Unknown variable in expression " + to_string());
-
-                int value = std::stoi(token->get_value());
-                values.push(value);
-                continue;
-            }
-
-            if (values.is_empty() || values.length() < 2)
-                throw std::runtime_error("Invalid expression");
-            */
-
             Value val;
             if (token->is_number()) {
-                if (token->get_value().find('.') != string::npos)
-                    val = Value(stof(token->get_value()));
+                if (token_value.find('.') != std::string::npos)
+                    val = Value(std::stof(token_value));
                 else
-                    val = Value(stoi(token->get_value()));
+                    val = Value(std::stoi(token_value));
             } else if (token->is_bool_literal()) {
-                val = Value(token->get_value() == "true");
+                val = Value(token_value == "true");
+            } else if (token->is_variable()) {
+                val = Value::make_reference(token_value);
             } else {
-                throw runtime_error("Unknown token: " + token->get_value());
+                throw std::runtime_error("Unknown token: " + token_value);
             }
 
             values.push(val);
             continue;
         }
 
+        // operator
         Value right = values.pop();
         Value left = values.pop();
-        Value result = apply_operator(left, token->get_value(), right, memory);
+
+        // Eğer op özel değilse ve operandlar reference ise, apply_operator içindeki lambda'lar
+        // genelde gerçek değerlere ihtiyaç duyacağından burada onları çözüp gönderebilirsin.
+        // Ancak assignment (=) için lhs referans olarak kalmalı; bu yüzden op'a göre davran.
+
+        // assign_op kendisi reference kontrolünü yapar
+        // Diğer operatörler için reference'ları resolve et:
+        if (token_value != "=") {
+            if (left.is_reference()) {
+                Value tmp = memory->get(left.as_variable_name());
+                if (tmp.is_null())
+                    throw std::runtime_error("Undefined variable: " + left.as_variable_name());
+                left = tmp;
+            }
+            if (right.is_reference()) {
+                Value tmp = memory->get(right.as_variable_name());
+                if (tmp.is_null())
+                    throw std::runtime_error("Undefined variable: " + right.as_variable_name());
+                right = tmp;
+            }
+        }
+        Value result = apply_operator(token_value, left, right, memory);
         values.push(result);
     }
 
@@ -182,9 +156,11 @@ bool Expression::check_parenthesis(string &infix) {
 }
 
 string Expression::to_string() const {
-    string result = "";
-    for (const auto& token : tokens) {
-        result += token->get_value();
+    string result;
+    for (size_t i = 0; i < tokens.size(); ++i) {
+        result += tokens[i]->get_value();
+        if (i != tokens.size() - 1)
+            result += " ";
     }
     return result;
 }
