@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     Compiler* compiler = new Compiler();
-    string input_path = RESOURCES_PATH "test.cpp";
+    string input_path = RESOURCES_PATH "test.wm";
     string output = compiler->compile_file(input_path);
     
     vector<string> output_lines;

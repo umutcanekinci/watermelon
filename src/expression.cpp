@@ -3,6 +3,8 @@
 #include "token.h"
 #include "stack.h"
 #include "memory.h"
+#include "operator_table.h"
+#include "value.h"
 using namespace std;
 
 Expression::Expression(vector<Token *> tokens) {
@@ -73,85 +75,110 @@ Expression *Expression::substitute_variables(Memory *memory) {
 
         if (token->is_variable()) {
             auto value = memory->get(token->get_value());
-            if (value != NULL) {
-                token->set_value(std::to_string(value));
+            if (!value.is_null()) {
+                token->set_value(value.to_string());
             }
         }
     }
     return this;
 }
 
-int Expression::evaluate() {
+//int apply_operator(int operand1, char op, int operand2) {
+Value apply_operator(Value left, const std::string &op, Value right, Memory *memory) {
+    auto it = OPERATOR_TABLE.find(op);
+    if (it == OPERATOR_TABLE.end())
+        throw std::runtime_error("Unknown operator: " + op);
+    return it->second.func(left, right, memory);
+    
+    // cout << "Evaluating: " << operand2 << " " << op << " " << operand1 << endl;
+    // // operator_string, operator_precedence, operator_func
+    // switch (op)
+    // {
+    //     case '+':
+    //         return operand2 + operand1;
+
+    //     case '-':
+    //         return operand2 - operand1;
+            
+    //     case '*':
+    //         return operand2 * operand1;
+
+    //     case '/':
+    //         if (operand1 == 0) {
+    //             throw std::runtime_error("Division by zero");
+    //         }
+
+    //         return operand2 / operand1;
+            
+    //     default:
+    //         return 0;
+    // }
+}
+
+//int Expression::evaluate() {
+Value Expression::evaluate(Memory *memory) {
     // TODO Assuming expression is in postfix notation
     // if not, give error or return later
 
-    Stack<int> *value_stack = new Stack<int>();
+    // Stack<int> *value_stack = new Stack<int>();
+    Stack<Value> values;
 
-    for (int i=0; i<tokens.size(); i++) {
-        Token* character = tokens[i];
-        if (!character->is_operator()) {
-            if (!character->is_number())
+    for (auto token : tokens) {
+        if (!token->is_operator()) {
+            /*
+            if (!token->is_number())
                 throw std::runtime_error("Unknown variable in expression " + to_string());
 
-            int value = std::stoi(character->get_value());
-            value_stack->push(value);
+                int value = std::stoi(token->get_value());
+                values.push(value);
+                continue;
+            }
+
+            if (values.is_empty() || values.length() < 2)
+                throw std::runtime_error("Invalid expression");
+            */
+
+            Value val;
+            if (token->is_number()) {
+                if (token->get_value().find('.') != string::npos)
+                    val = Value(stof(token->get_value()));
+                else
+                    val = Value(stoi(token->get_value()));
+            } else if (token->is_bool_literal()) {
+                val = Value(token->get_value() == "true");
+            } else {
+                throw runtime_error("Unknown token: " + token->get_value());
+            }
+
+            values.push(val);
             continue;
         }
 
-        if (value_stack->is_empty() || value_stack->length() < 2)
-            throw std::runtime_error("Invalid expression");
-
-        int val1 = value_stack->pop();
-        int val2 = value_stack->pop();
-
-        int result = apply_operator(val2, character->get_value()[0], val1);
-
-        value_stack->push(result);
+        Value right = values.pop();
+        Value left = values.pop();
+        Value result = apply_operator(left, token->get_value(), right, memory);
+        values.push(result);
     }
 
-    return value_stack->pop();
-}
-
-int apply_operator(int operand1, char op, int operand2) {
-    cout << "Evaluating: " << operand2 << " " << op << " " << operand1 << endl;
-    // operator_string, operator_precedence, operator_func
-    switch (op)
-    {
-        case '+':
-            return operand2 + operand1;
-
-        case '-':
-            return operand2 - operand1;
-            
-        case '*':
-            return operand2 * operand1;
-
-        case '/':
-            if (operand1 == 0) {
-                throw std::runtime_error("Division by zero");
-            }
-
-            return operand2 / operand1;
-            
-        default:
-            return 0;
-    }
+    return values.pop();
 }
 
 bool Expression::check_parenthesis(string &infix) {
-    Stack<Token *> parenthesis_stack = Stack<Token *>();
+    return true;
+    
+    // Stack<Token> parenthesis_stack = Stack<Token>();
 
-    for (int i=0; i<infix.length(); i++) {
-        Token *character = new Token(string(1, infix[i]));
-        if (character->get_value() == "(")
-            parenthesis_stack.push(character);
-        else if (character->get_value() == ")") {
-            if (parenthesis_stack.is_empty() || parenthesis_stack.get()->get_value() != "(")
-                return false;
-            parenthesis_stack.pop();
-        }
-    }
-    return parenthesis_stack.is_empty();
+    // for (auto ch : infix) {
+    //     Token character = Token(string(1, ch));
+    //     if (character.get_value() == "(")
+    //         parenthesis_stack.push(character);
+    //     else if (character.get_value() == ")") {
+    //         if (parenthesis_stack.is_empty() || parenthesis_stack.get().get_value() != "(")
+    //             return false;
+    //         parenthesis_stack.pop();
+    //     }
+    // }
+    // return parenthesis_stack.is_empty();
 }
 
 string Expression::to_string() const {

@@ -15,9 +15,11 @@ Compiler::Compiler() {
 }
 
 string Compiler::compile_line(ScriptLine *line) {
-    if (line->is_assignment())
-        memory->set(line->get_assignment_variable_and_value(memory));
-
+    //  if (line->is_assignment()) {
+    //      auto var_and_value = line->get_assignment_variable_and_value(memory);
+    //      memory->set(var_and_value);
+    //  }
+    line->run(memory);
     return "";
 }
 

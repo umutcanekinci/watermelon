@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "value.h"
 
 class Memory;
 class Token;
@@ -20,7 +21,8 @@ public:
     bool is_valid_assignment() const;
     void tokenize();
     void substitute_variables(const std::vector<std::pair<std::string, int>>& variables);
-    std::pair<std::string, int> get_assignment_variable_and_value(Memory *memory);
+    void run(Memory *memory);
+    std::pair<std::string, Value> get_assignment_variable_and_value(Memory *memory);
     Token *get_assignment_variable_token();
     Expression *get_assignment_expression();
     std::string to_string() const;

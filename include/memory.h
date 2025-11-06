@@ -2,12 +2,14 @@
 #include <string>
 #include <unordered_map>
 
+class Value;
+
 class Memory {
 public:
     Memory();
-    int get(const std::string& name) const;
-    void set(const std::string& name, int value);   
-    void set(std::pair<std::string, int> var_and_value);
+    Value get(const std::string& name) const;
+    void set(const std::string& name, const Value& value);
+    void set(std::pair<std::string, const Value&> var_and_value);
 private:
-    std::unordered_map<std::string, int> variables;
+    std::unordered_map<std::string, Value> variables;
 };

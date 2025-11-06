@@ -3,12 +3,42 @@
 #include "expression.h"
 #include <stdexcept>
 #include <string>
+#include <value.h>
 using namespace std;
 
 ScriptLine::ScriptLine(int number, const string& line) {
     this->number = number;
     this->line = line;
     tokenize();
+}
+
+/* Parse line to the operators, numbers, and variables
+a=5 -> ["a", "=", "5"]
+a=a+b -> ["a", "=", "a", "+", "b"]
+var = var1 + var2 * 10 -> ["var", "=", "var1", "+", "var2", "*", "10"]
+*/
+void ScriptLine::tokenize() {
+    string current_token = "";
+    for (char ch : line) {
+        if (isspace(ch))
+            continue;
+
+        Token token(string(1, ch));
+        if (token.is_operator()) {
+            if (!current_token.empty()) {
+                token.set_value(current_token);
+                tokens.push_back(new Token(current_token));
+            }
+            tokens.push_back(new Token(string(1, ch)));
+            current_token = "";
+            continue;
+        }
+        current_token += ch;
+    }
+    if (current_token.empty())
+        return;
+    
+    tokens.push_back(new Token(current_token));
 }
 
 bool ScriptLine::is_comment() const {
@@ -54,59 +84,30 @@ bool ScriptLine::is_valid_assignment() const {
     return true;
 }
 
-/* Parse line to the operators, numbers, and variables
-a=5 -> ["a", "=", "5"]
-a=a+b -> ["a", "=", "a", "+", "b"]
-var = var1 + var2 * 10 -> ["var", "=", "var1", "+", "var2", "*", "10"]
-*/
-void ScriptLine::tokenize() {
-    string current_token = "";
-    for (char ch : line) {
-        if (isspace(ch))
-            continue;
-
-        Token token(string(1, ch));
-        if (token.is_operator()) {
-            if (!current_token.empty()) {
-                token.set_value(current_token);
-                tokens.push_back(new Token(current_token));
-            }
-            tokens.push_back(new Token(string(1, ch)));
-            current_token = "";
-            continue;
-        }
-        current_token += ch;
-    }
-    if (current_token.empty())
-        return;
-    
-    tokens.push_back(new Token(current_token));
+void ScriptLine::run(Memory *memory) {
+    Expression *expr = new Expression(std::vector<Token *>(tokens));
+    expr->substitute_variables(memory)->to_postfix()->evaluate(memory);
 }
 
-pair<string, int> ScriptLine::get_assignment_variable_and_value(Memory * memory) {
-    string var_name = get_assignment_variable_token()->get_value();
-    int result = get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate();
-    return make_pair(var_name, result);
-}
+// pair<string, Value> ScriptLine::get_assignment_variable_and_value(Memory * memory) {
+//     string var_name = get_assignment_variable_token()->get_value();
+//     Value result = get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate(memory);
+//     return make_pair(var_name, result);
+// }
 
-Token *ScriptLine::get_assignment_variable_token() {
-    if (!is_valid_assignment())
-        throw runtime_error("Invalid assignment variable token");
+// Token *ScriptLine::get_assignment_variable_token() {
+//     if (!is_valid_assignment())
+//         throw runtime_error("Invalid assignment variable token");
 
-    return tokens[0];
-}
+//     return tokens[0];
+// }
 
-Expression *ScriptLine::get_assignment_expression() {
-    if (!is_valid_assignment())
-        throw runtime_error("Invalid assignment expression");
+// Expression *ScriptLine::get_assignment_expression() {
+//     if (!is_valid_assignment())
+//         throw runtime_error("Invalid assignment expression");
 
-    vector<Token *> expr_tokens;
-    for (size_t i = 2; i < tokens.size(); i++) {
-        expr_tokens.push_back(tokens[i]);
-    }
-    
-    return new Expression(expr_tokens);
-}
+//     return new Expression(std::vector<Token *>(tokens.begin() + 2, tokens.end()));
+// }
 
 string ScriptLine::to_string() const {
     string result = "Line " + std::to_string(number) + ": ";

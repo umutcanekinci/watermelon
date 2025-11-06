@@ -42,6 +42,9 @@ bool Token::is_empty() const {
     return value.empty();
 }
 
+bool Token::is_bool_literal() const {
+    return value == "true" || value == "false";
+}
 bool Token::is_variable() const {
     return !is_number() && !is_operator();
 }

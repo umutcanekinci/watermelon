@@ -11,6 +11,7 @@ public:
     void set_value(const std::string& new_value);
     int get_precedence() const;
 
+    bool is_bool_literal() const;
     bool is_empty() const;
     bool is_variable() const;
     bool is_number() const;
