@@ -1,57 +1,49 @@
 #include "token.h"
 #include <stdexcept>
+#include "operator_table.h"
+#include <algorithm>
 using namespace std;
 
 Token::Token(const string& value) {
-    set_value(value);
+    this->value = value;
 }
 
 const string& Token::get_value() const {
     return value;
 }
 
-void Token::set_value(const string& new_value) {
-    value = new_value;
-}
-
-int Token::get_precedence() const {
-    if (value == "(" || value == ")")
-        return 1;
-    else if (value == "*" || value == "/")
-        return 2;
-    else if (value == "+" || value == "-")
-        return 3;
-    return -1;
-}
-
-bool Token::is_valid_variable() const {
-    if (value.empty() || std::isdigit(value[0])) {
-        return false;
-    }
-
-    // Check that all characters are alphanumeric or underscore
-    for (char const &ch : value) {
-        if (!std::isalnum(ch) && ch != '_') {
-            return false;
-        }
-    }
-    return true;
-}
-
 bool Token::is_empty() const {
     return value.empty();
 }
 
-bool Token::is_bool_literal() const {
+bool Token::is_bool() const {
     return value == "true" || value == "false";
 }
 bool Token::is_variable() const {
-    return !is_number() && !is_operator();
+return !is_number() && !is_operator() && !is_bool() && !is_string();
+}
+
+bool Token::is_string() const {
+    return value.length() >= 2 && value.front() == '"' && value.back() == '"';
 }
 
 bool Token::is_number() const {
+    return is_float() || is_integer();
+}
+
+bool Token::is_float() const {
+    if (std::count(value.begin(), value.end(), '.') != 1)
+        return false;
+
     for (char const &ch : value) {
-        if (std::isdigit(ch) == 0) return false;
+        if (std::isdigit(ch) == 0 && ch != '.') return false;
+    }
+    return true;
+}
+
+bool Token::is_integer() const {
+    for (char const &ch : value) {
+        if (!std::isdigit(ch)) return false;
     }
     return true;
 }
@@ -59,6 +51,6 @@ bool Token::is_number() const {
 bool Token::is_operator() const {
     if (value.length() != 1)
         return false;
-    char ch = value[0];
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '=' || ch == '(' || ch == ')';
+        
+    return OperatorTable::TABLE.find(value) != OperatorTable::TABLE.end();
 }

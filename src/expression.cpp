@@ -94,8 +94,10 @@ Value Expression::evaluate(Memory *memory) {
                     val = Value(std::stof(token_value));
                 else
                     val = Value(std::stoi(token_value));
-            } else if (token->is_bool_literal()) {
+            } else if (token->is_bool()) {
                 val = Value(token_value == "true");
+            } else if (token->is_string()) {
+                val = Value(token_value.substr(1, token_value.length() - 2)); // remove quotes
             } else if (token->is_variable()) {
                 val = Value::make_reference(token_value);
             } else {
@@ -137,7 +139,7 @@ Value Expression::evaluate(Memory *memory) {
     return values.pop();
 }
 
-bool Expression::check_parenthesis(string &infix) {
+bool Expression::are_parentheses_balanced(string &infix) {
     return true;
     
     // Stack<Token> parenthesis_stack = Stack<Token>();

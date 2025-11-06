@@ -16,14 +16,6 @@ public:
     ScriptLine(int number, const std::string& line);
     bool is_comment() const;
     bool is_empty() const;
-    bool is_assignment() const;
-    bool is_valid() const;
-    bool is_valid_assignment() const;
-    void tokenize();
-    void substitute_variables(const std::vector<std::pair<std::string, int>>& variables);
-    void run(Memory *memory);
-    std::pair<std::string, Value> get_assignment_variable_and_value(Memory *memory);
-    Token *get_assignment_variable_token();
-    Expression *get_assignment_expression();
+    void compile(Memory *memory);
     std::string to_string() const;
 };

@@ -100,7 +100,8 @@ static inline Value assign_op(Value a, Value b, Memory* memory) {
 
 const std::unordered_map<std::string, OperatorInfo> OperatorTable::TABLE = {
     // Postfix
-    // {"()", { 13,  false, nullptr }},
+    {"(", { 13,  false, nullptr }},
+    {")", { 13,  false, nullptr }},
     // {"[]", { 13,  false, nullptr }},
     // {".",  { 13,  false, nullptr }},
     // {"++", { 12,  false, nullptr }},

@@ -20,5 +20,5 @@ public:
     void infix_to_postfix_char(Token * current, Stack<Token *> &postfix, int i, Stack<Token *> *operator_stack);
     std::string to_string() const;
 
-    bool check_parenthesis(std::string &infix);
+    bool are_parentheses_balanced(std::string &infix);
 };
