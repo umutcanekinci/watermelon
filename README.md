@@ -68,17 +68,22 @@ is_valid = true && (a < 10)
 [MEMORY] is_valid = true
 ```
 
+## 🗂️ Project Board
+Check out the live development board here:  
+👉 [Watermelon Kanban Board](https://github.com/users/umutcanekinci/projects/1)
 ## 📅 Development Plan
 
 Watermelon is developed using a Sprint-based structure to simulate
 real compiler design phases and organized progress tracking.
 
-Sprint	Status	Goal
-Sprint 0	✅ Done	Core system (Tokenizer, Expression, OperatorTable, Memory)
-Sprint 1	🚧 In Progress	SyntaxValidator + Error reporting (line, column info)
-Sprint 2	⏳ Planned	Functions, Scopes, and Type System
-Sprint 3	⏳ Planned	REPL mode + Debug shell
-Sprint 4	⏳ Planned	Intermediate Representation + Optimizations
+| Sprint       | Status         | Goal                                                       |
+| :----------- | :------------- | :--------------------------------------------------------- |
+| **Sprint 0** | ✅ Done         | Core system (Tokenizer, Expression, OperatorTable, Memory) |
+| **Sprint 1** | 🚧 In Progress | SyntaxValidator + Error reporting (line, column info)      |
+| **Sprint 2** | ⏳ Planned      | Functions, Scopes, and Type System                         |
+| **Sprint 3** | ⏳ Planned      | REPL mode + Debug shell                                    |
+| **Sprint 4** | ⏳ Planned      | Intermediate Representation + Optimizations                |
+
 
 ## 🧩 Technical Highlights
 
