@@ -5,11 +5,13 @@
 class Memory;
 class SyntaxValidator;
 class ScriptLine;
+class ErrorReporter;
 
 class Compiler {
 private:
     Memory *memory;
     SyntaxValidator *syntax_validator;
+    ErrorReporter *error_reporter;
 public:
     Compiler();
     std::string compile_file(std::string path);
