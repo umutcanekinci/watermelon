@@ -68,6 +68,9 @@ is_valid = true && (a < 10)
 [MEMORY] is_valid = true
 ```
 
+## 🗂️ Project Board
+Check out the live development board here:  
+👉 [Watermelon Kanban Board](https://github.com/users/umutcanekinci/projects/1)
 ## 📅 Development Plan
 
 Watermelon is developed using a Sprint-based structure to simulate
