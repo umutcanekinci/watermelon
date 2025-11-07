@@ -4,7 +4,9 @@
 designed as a personal compiler project that grows feature by feature —  
 just like the Diyarbakır watermelons it’s named after 🍉  
 
+
 ---
+
 
 ## 🚀 Project Overview
 
@@ -18,7 +20,9 @@ Watermelon is a mini-compiler that supports:
 Its goal is to evolve into a **simple scripting language**, with readable syntax,  
 custom operators, and runtime memory management — all built from scratch in C++.
 
+
 ---
+
 
 ## 🧱 Architecture
 
@@ -35,6 +39,10 @@ Compiler
 Each module is independent and testable,
 designed with clean separation of parsing, evaluation, and runtime logic.
 
+
+---
+
+
 ## 📘 Example Script
 ```plaintext
 // Comments are supported
@@ -44,6 +52,7 @@ c = a + b * (a + 3)
 s = "hello" + " world"
 is_valid = true && (a < 10)
 ```
+
 
 #### Output (Debug mode):
 ```plaintext
@@ -68,9 +77,19 @@ is_valid = true && (a < 10)
 [MEMORY] is_valid = true
 ```
 
+
+---
+
+
 ## 🗂️ Project Board
+
 Check out the live development board here:  
 👉 [Watermelon Kanban Board](https://github.com/users/umutcanekinci/projects/1)
+
+
+---
+
+
 ## 📅 Development Plan
 
 Watermelon is developed using a Sprint-based structure to simulate
@@ -85,29 +104,40 @@ real compiler design phases and organized progress tracking.
 | **Sprint 4** | ⏳ Planned      | Intermediate Representation + Optimizations                |
 
 
+---
+
+
 ## 🧩 Technical Highlights
 
-C++17 Standard – modern and lightweight
+- C++17 Standard – modern and lightweight
 
-Custom Stack implementation
+- Custom Stack implementation
 
-Operator Precedence Parsing (Shunting Yard)
+- Operator Precedence Parsing (Shunting Yard)
 
-Dynamic Value system supporting multiple data types
+- Dynamic Value system supporting multiple data types
 
-Runtime memory management
+- Runtime memory management
+
+
+---
+
 
 ## 💡 Future Ideas
 
-Built-in functions (print, input)
+- Built-in functions (print, input)
 
-Type inference & casting
+- Type inference & casting
 
-Import system for scripts
+- Import system for scripts
 
-REPL (interactive console)
+- REPL (interactive console)
 
-Bytecode backend
+- Bytecode backend
+
+
+---
+
 
 ## 🧠 Philosophy
 
@@ -116,12 +146,20 @@ Bytecode backend
 Watermelon started as an experiment — not to reinvent the compiler,
 but to understand it deeply by building one from scratch.
 
+
+---
+
+
 ## 🧑‍💻 Author
 
 Developed by: Umutcan Ekinci
 
 Inspired by: Diyarbakır’s legendary watermelons 🍉
 Language: C++
+
+
+---
+
 
 ## 🪪 License
 
