@@ -1,25 +1,23 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "value.h"
+#include "location.h"
 
+class Memory;
 class Token;
 class Expression;
-
 class ScriptLine {
 private:
-    int number;
     std::string line;
-    std::vector<Token *> tokens;
+    Location location;
 public:
-    ScriptLine(int number, const std::string& line);
+    ScriptLine(const Location& location, const std::string& line);
+
+    std::string get_text() const;
+    Location get_location() const;
+
     bool is_comment() const;
     bool is_empty() const;
-    bool is_assignment() const;
-    bool is_valid() const;
-    bool is_valid_assignment() const;
-    void tokenize();
-    void substitute_variables(const std::vector<std::pair<std::string, int>>& variables);
-    Token *get_assignment_variable_token();
-    Expression *get_assignment_expression();
     std::string to_string() const;
 };

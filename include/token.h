@@ -1,28 +1,25 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "location.h"
 
 class Token {
-public:
-    enum Type {
-        NUMBER,
-        OPERATOR,
-        VARIABLE,
-        PARENTHESIS
-    };
-
-    Token(const std::string& value);
-    Type get_type() const;
-    const std::string& get_value() const;
-    void set_value(const std::string& new_value);
-    static bool is_number(const std::string& s);
-    bool is_number() const;
-    bool is_operator() const;
-    static bool is_operator(const std::string& s);
-    static Type determine_type(const std::string& token);
-    bool is_empty() const;
-    bool is_valid_variable() const;
 private:
-    Type type;
     std::string value;
+    Location location;
+public:
+    Token(const std::string& value, const Location& location);
+    Token(const char value, const Location& location);
+
+    const std::string& get_value() const;
+    const Location& get_location() const;
+    
+    bool is_empty() const;
+    bool is_variable() const;
+    bool is_bool() const;
+    bool is_string() const;
+    bool is_number() const;
+    bool is_float() const;
+    bool is_integer() const;
+    bool is_operator() const;
 };

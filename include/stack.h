@@ -1,25 +1,28 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Operator;
 
 template <typename T>
 class Stack {
 private:
-    T **array;
+    T *array;
     int top;
     int size;
 public:
     Stack();
-    void push(T* value);
-    T* get(), * pop();
+    void push(const T &value);
+    T get();
+    T pop();
     bool is_empty();
     bool is_full();
     int length();
     void display();
-    void pop_all_to_string(std::string *s);
-    T* pop_to_string(std::string *s);
+    void pop_all_to_other(Stack<T> *other);
+    T pop_to_other(Stack<T> *other);
+    std::vector<T> to_vector();
 };
 
 /*
@@ -32,18 +35,22 @@ public:
 template <typename T>
 Stack<T>::Stack() {
     size = 100;
-    array = new T*[size];
+    array = new T[size];
     top = -1;
 }
 
 template <typename T>
-void Stack<T>::push(T* value) {
+void Stack<T>::push(const T& value) {
+    if (is_full())
+        return;
     array[++top] = value;
 }
 
 template <typename T>
-T* Stack<T>::pop() {
-    return is_empty() ? nullptr : array[top--];
+T Stack<T>::pop() {
+    if (is_empty())
+        throw std::runtime_error("Stack is empty");
+    return array[top--];
 }
 
 template <typename T>
@@ -57,8 +64,10 @@ bool Stack<T>::is_full() {
 }
 
 template <typename T>
-T* Stack<T>::get() {
-    return is_empty() ? nullptr : array[top];
+T Stack<T>::get() {
+    if (is_empty())
+        throw std::runtime_error("Stack is empty");
+    return array[top];
 }
 
 template <typename T>
@@ -75,16 +84,23 @@ void Stack<T>::display() {
 }
 
 template <typename T>
-void Stack<T>::pop_all_to_string(std::string *s) {
+void Stack<T>::pop_all_to_other(Stack<T> *other) {
     while (!is_empty())
-        *s += pop()->get_value();
+        other->push(pop());
 }
 
 template <typename T>
-T* Stack<T>::pop_to_string(std::string *s) {
-    if (is_empty())
-        return nullptr;
-    T* value = pop();
-    *s += value->get_value();
+T Stack<T>::pop_to_other(Stack<T> *other) {
+    T value = pop();
+    other->push(value);
     return value;
+}
+
+template <typename T>
+std::vector<T> Stack<T>::to_vector() {
+    std::vector<T> result;
+    for (int i=0; i <= top; i++) {
+        result.push_back(array[i]);
+    }
+    return result;
 }

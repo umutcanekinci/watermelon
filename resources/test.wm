@@ -1,0 +1,32 @@
+
+// DONE Comment lines and empty lines ignored.
+// DONE Single integer assignments
+// DONE Single integer assignments with spaces
+// DONE Updating existing variable
+// DONE Assignment using expressions
+// FIXED Wrong Values in addition
+// DONE boolean type is added
+// DONE relative operators are added
+// DONE flaot type is added
+// TODO string, types added
+
+
+// QUESTIONS
+// WHEN TO SUBSTITUTE?
+// 1) Right side of assignment only (EXPRESSION)
+// a = b + c
+// 2) Function calls
+// foo(a, b + c)
+
+
+a=1
+b=2
+c = a +    b
+c = a * b + ( a + b ) * 3 - 4 / 12
+
+
+s = true
+
+m = c > a
+f = 3.2
+t = "selam"
