@@ -6,8 +6,8 @@
 #include <value.h>
 using namespace std;
 
-ScriptLine::ScriptLine(int number, const string& line) {
-    this->number = number;
+ScriptLine::ScriptLine(const Location& location, const string& line) {
+    this->location = location;
     this->line = line;
 }
 
@@ -20,5 +20,5 @@ bool ScriptLine::is_empty() const {
 }
 
 string ScriptLine::to_string() const {
-    return "line " + std::to_string(number) + ": " + line;
+    return location.to_string() + " " + line;
 }

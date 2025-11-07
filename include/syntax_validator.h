@@ -13,4 +13,6 @@ public:
     static bool are_quotes_balanced(const std::vector<Token*>& tokens);
 
     static void check_token(const Token* token);
+
+    static void throw_error(const std::string& message, const Token& token);
 };

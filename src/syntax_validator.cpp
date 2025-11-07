@@ -44,6 +44,17 @@ void SyntaxValidator::check_token(const Token* token) {
     return;
 }
 
+void SyntaxValidator::throw_error(const std::string& message, const Token& token) {
+    const auto& loc = token.get_location();
+    throw std::runtime_error(
+        message + " at " + loc.filename +
+        ":" + std::to_string(loc.line) +
+        ":" + std::to_string(loc.column) +
+        " (token: '" + token.get_value() + "')"
+    );
+}
+
+
 // bool SyntaxValidator::is_valid_assignment() const {
 //     if (!is_assignment() || tokens.empty())
 //         return false;

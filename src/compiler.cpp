@@ -22,11 +22,12 @@ string Compiler::compile_file(string path) {
     vector<string> input = read_file(path);
     for (int i=0; i < input.size(); i++) {
         string line = input[i];
-        ScriptLine script_line(i+1, line);
+        Location location(path, i+1, 1);
+        ScriptLine script_line(location, line);
         if (script_line.is_empty() || script_line.is_comment())
             continue;
 
-        vector<Token *> tokens = Tokenizer::tokenize(line);
+        vector<Token *> tokens = Tokenizer::tokenize(script_line);
 
         syntax_validator->validate(tokens);
 

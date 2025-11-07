@@ -1,15 +1,19 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "location.h"
 
 class Token {
 private:
     std::string value;
+    Location location;
 public:
-    Token(const std::string& value);
-    Token(const char value) : Token(std::string(1, value)) {}
-    const std::string& get_value() const;
+    Token(const std::string& value, const Location& location);
+    Token(const char value, const Location& location);
 
+    const std::string& get_value() const;
+    const Location& get_location() const;
+    
     bool is_empty() const;
     bool is_variable() const;
     bool is_bool() const;
