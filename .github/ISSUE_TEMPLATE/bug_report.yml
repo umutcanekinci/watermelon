@@ -1,0 +1,32 @@
+name: 🐛 Bug Report
+description: Report a problem or unexpected behavior in Watermelon
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the issue and what you expected instead.
+      placeholder: "The compiler crashes when a variable name starts with a number."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the bug?
+      placeholder: |
+        1. Run 'watermelon test.wm'
+        2. In file test.wm, write '1x = 5'
+        3. Observe crash
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Watermelon Version / Commit
+      description: What version or commit hash are you using?
+      placeholder: "v0.2.1 (commit abc123)"

@@ -1,0 +1,29 @@
+name: 🔧 Refactor Request
+description: Suggest an internal code improvement or cleanup
+title: "[Refactor]: "
+labels: [refactor]
+body:
+  - type: textarea
+    id: area
+    attributes:
+      label: Affected Area
+      description: Which part of the code needs refactoring?
+      placeholder: "Tokenizer or Parser module"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Refactor
+      description: Why should this be refactored?
+      placeholder: "The Tokenizer class is handling too many responsibilities."
+    validations:
+      required: true
+
+  - type: textarea
+    id: approach
+    attributes:
+      label: Suggested Approach
+      description: How do you plan to refactor or simplify the code?
+      placeholder: "Move location tracking to a separate Location struct."

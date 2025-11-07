@@ -1,0 +1,33 @@
+name: 🧪 Test Case Request
+description: Propose or improve tests for Watermelon
+title: "[Test]: "
+labels: [test]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What to Test
+      description: Which functionality or file needs tests?
+      placeholder: "SyntaxValidator parentheses handling"
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why Important
+      description: Why should this area be tested?
+      placeholder: "Parentheses are common error sources; need coverage."
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Test Case
+      description: Provide an example input or scenario.
+      placeholder: |
+        Input:
+          print((2 + 3)
+        Expected:
+          SyntaxError: Missing ')'"
