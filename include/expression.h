@@ -3,8 +3,8 @@
 #include <string>
 #include "stack.h"
 
-class Value;
 class Token;
+class Operator;
 class Memory;
 
 // Expression is a list of tokens which can be evaluated to a value.
@@ -14,11 +14,10 @@ private:
 public:
     Expression(std::vector<Token *> tokens);
     Expression *substitute_variables(Memory *memory);
+    int evaluate();
     Expression *to_postfix();
-    Value evaluate(Memory *memory);
-    void add_operator_to_stack(Token *current, Stack<Token *> *postfix, Stack<Token *> *operator_stack);
-    void infix_to_postfix_char(Token * current, Stack<Token *> &postfix, int i, Stack<Token *> *operator_stack);
+    bool check_parenthesis(std::string &infix);
+    void add_operator_to_stack(std::vector<Token *> *postfix, Stack<Operator> *operator_stack, Operator *current);
+    void infix_to_postfix_char(Token * current, std::vector<Token *> &postfix, int i, Stack<Operator> *operator_stack);
     std::string to_string() const;
-
-    bool are_parentheses_balanced(std::string &infix);
 };

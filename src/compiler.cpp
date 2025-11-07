@@ -1,20 +1,32 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <stdexcept>
 #include "compiler.h"
 #include "file_operations.h"
-#include "script_line.h"
-#include "memory.h"
-#include "expression.h"
+#include "operator.h"
 #include "token.h"
-#include "syntax_validator.h"
-#include "tokenizer.h"
+#include "script_line.h"
+#include "stack.h"
+#include "expression.h"
+#include <stdexcept>
+#include "memory.h"
 using namespace std;
 
 Compiler::Compiler() {
     memory = new Memory();
-    syntax_validator = new SyntaxValidator();
+}
+
+string Compiler::compile_line(ScriptLine *line) {
+    if (line->is_empty() || line->is_comment())
+        return "";
+
+    if (line->is_assignment()) {
+        string var_name = line->get_assignment_variable_token()->get_value();
+        int result = line->get_assignment_expression()->substitute_variables(memory)->to_postfix()->evaluate();
+        memory->set(var_name, result);
+    }
+
+    return "";
 }
 
 string Compiler::compile_file(string path) {
@@ -22,28 +34,17 @@ string Compiler::compile_file(string path) {
     vector<string> input = read_file(path);
     for (int i=0; i < input.size(); i++) {
         string line = input[i];
-        Location location(path, i+1, 1);
-        ScriptLine script_line(location, line);
+        ScriptLine script_line(i+1, line);
         if (script_line.is_empty() || script_line.is_comment())
             continue;
 
-        vector<Token *> tokens = Tokenizer::tokenize(script_line);
+        if (!script_line.is_valid())
+            throw runtime_error("Syntax error in " + script_line.to_string());
+        string result = compile_line(&script_line);
+        if (result.empty())
+            continue;
 
-        syntax_validator->validate(tokens);
-
-        compile_line(tokens);
+        output += result;
     }
-
-    return "";
-}
-
-string Compiler::compile_line(vector<Token *> tokens) {
-    Expression infix = Expression(tokens);
-    Expression *postfix = infix.to_postfix();
-
-    cout << "[PARSE] Infix  : " << infix.to_string() << endl;
-    cout << "[PARSE] Postfix: " << postfix->to_string() << endl;
-    postfix->evaluate(memory);
-
-    return "";
+    return output;
 }

@@ -1,69 +1,85 @@
-#include "location.h"
 #include "token.h"
-#include "operator_table.h"
-#include <algorithm>
 #include <stdexcept>
-
 using namespace std;
 
-Token::Token(const string& value, const Location& location) {
-    this->value = value;
-    this->location = location;
+Token::Token(const string& value) {
+    set_value(value);
 }
 
-Token::Token(const char value, const Location& location) {
-    this->value = string(1, value);
-    this->location = location;
+Token::Type Token::get_type() const {
+    return type;
 }
 
 const string& Token::get_value() const {
     return value;
 }
 
-const Location& Token::get_location() const {
-    return location;
+void Token::set_value(const string& new_value) {
+    value = new_value;
+    type = determine_type(new_value);
+}
+
+bool Token::is_number(const string& s) {
+    for (char const &ch : s) {
+        if (std::isdigit(ch) == 0) return false;
+    }
+    return true;
+}
+
+bool Token::is_operator(const string& s) {
+    if (s.length() != 1) return false;
+    char ch = s[0];
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '=';
+}
+
+bool Token::is_operator() const {
+    return is_operator(value);
+}
+
+bool Token::is_number() const {
+    return is_number(value);
+}
+
+bool Token::is_valid_variable() const {
+    if (value.empty() || std::isdigit(value[0])) {
+        return false;
+    }
+
+    // Check that all characters are alphanumeric or underscore
+    for (char const &ch : value) {
+        if (!std::isalnum(ch) && ch != '_') {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool Token::is_empty() const {
     return value.empty();
 }
 
-bool Token::is_variable() const {
-return !is_number() && !is_operator() && !is_bool() && !is_string();
-}
-
-bool Token::is_bool() const {
-    return value == "true" || value == "false";
-}
-
-bool Token::is_string() const {
-    return value.length() >= 2 && value.front() == '"' && value.back() == '"';
-}
-
-bool Token::is_number() const {
-    return is_float() || is_integer();
-}
-
-bool Token::is_float() const {
-    if (std::count(value.begin(), value.end(), '.') != 1)
-        return false;
-
-    for (char const &ch : value) {
-        if (std::isdigit(ch) == 0 && ch != '.') return false;
+Token::Type Token::determine_type(const string& token) {
+    if (token.empty()) {
+        throw std::runtime_error("Empty token cannot be classified.");
     }
-    return true;
-}
 
-bool Token::is_integer() const {
-    for (char const &ch : value) {
-        if (!std::isdigit(ch)) return false;
+    // Check if the token is a number
+    if (is_number(token)) {
+        return NUMBER;
     }
-    return true;
-}
 
-bool Token::is_operator() const {
-    if (value.length() != 1)
-        return false;
-        
-    return OperatorTable::TABLE.find(value) != OperatorTable::TABLE.end();
+    // Check if the token is an operator
+    if (token.length() == 1) {
+        char ch = token[0];
+        if (is_operator(string(1, ch))) {
+            return OPERATOR;
+        }
+    }
+
+    // Check if the token is a parenthesis
+    if (token == "(" || token == ")") {
+        return PARENTHESIS;
+    }
+
+    return VARIABLE;
 }

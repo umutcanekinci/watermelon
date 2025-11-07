@@ -3,7 +3,7 @@
 #include "stack.h"
 using namespace std;
 
-bool are_parentheses_balanced(string &infix) {
+bool check_parenthesis(string &infix) {
     Stack<Operator> *parenthesis_stack = new Stack<Operator>();
 
     for (int i=0; i<infix.length(); i++) {

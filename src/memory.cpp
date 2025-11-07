@@ -2,24 +2,18 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
-#include "value.h"
-using namespace std;
 
 Memory::Memory() {}
 
-Value Memory::get(const string& name) const {
+int Memory::get(const std::string& name) const {
     auto it = variables.find(name);
     if (it != variables.end()) {
         return it->second;
     }
-    return Value(); // Return null Value if not found
+    throw std::runtime_error("Variable " + name + " not found");
 }
 
-void Memory::set(const string& name, const Value& value) {
-    cout << "[MEMORY] "<< name << " = " << value.to_string() << endl;
+void Memory::set(const std::string& name, int value) {
+    std::cout << "[MEMORY] Setting variable " << name << " with value " << value << std::endl;
     variables[name] = value;
-}
-
-void Memory::set(pair<string, const Value&> var_and_value) {
-    set(var_and_value.first, var_and_value.second);
 }
