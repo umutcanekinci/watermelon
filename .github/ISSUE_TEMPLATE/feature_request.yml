@@ -1,0 +1,38 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for Watermelon
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the feature or improvement you want to add.
+      placeholder: "Example: Add support for string concatenation operator"
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this feature needed? What problem does it solve?
+      placeholder: "It would make script writing more flexible by allowing string merging."
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation Details
+      description: How do you plan to implement it (optional)?
+      placeholder: "Modify Parser to handle '+' between string tokens."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - Low
+        - Medium
+        - High
