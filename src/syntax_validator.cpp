@@ -1,13 +1,14 @@
 #include "syntax_validator.h"
 #include <stdexcept>
 #include <exceptions.h>
+#include <error_reporter.h>
 
 void SyntaxValidator::validate(const std::vector<Token*>& tokens) {
     if (!are_parentheses_balanced(tokens))
-        throw SyntaxError("Unbalanced parentheses", tokens[0]->get_location());
+        error_reporter::log(ErrorType::Syntax, "Unbalanced parentheses", tokens[0]->get_location());
 
     if (!are_quotes_balanced(tokens))
-        throw SyntaxError("Unbalanced string quotes", tokens[0]->get_location());
+        error_reporter::log(ErrorType::Syntax, "Unbalanced string quotes", tokens[0]->get_location());
 
     for (auto const token : tokens) {
         check_token(token);
@@ -45,12 +46,12 @@ void SyntaxValidator::check_token(const Token* token) {
     if (token->is_variable()) {
         const std::string& value = token->get_value();
         if (std::isdigit(value[0])) {
-            throw SyntaxError("Variable name cannot start with a digit: " + value, token->get_location());
+            error_reporter::log(ErrorType::Syntax, "Variable name cannot start with a digit: " + value, token->get_location());
         }
         
         for (char const &ch : value) {
             if (!std::isalnum(ch) && ch != '_') {
-                throw SyntaxError("Invalid character in variable name: " + value, token->get_location());
+                error_reporter::log(ErrorType::Syntax, "Invalid character in variable name: " + value, token->get_location());
             }
         }
     }

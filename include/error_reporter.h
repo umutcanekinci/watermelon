@@ -9,6 +9,12 @@ enum class ErrorType {
     Validation
 };
 
+/*
+* Diagnostic class is for compile time errors.
+* They will store in a vector in ErrorReporter.
+* And show all at once after compilation. Before runtime.
+* Runtime errors will be thrown as exceptions.
+*/
 struct Diagnostic {
     ErrorType type;
     std::string message;

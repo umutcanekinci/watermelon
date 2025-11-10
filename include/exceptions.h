@@ -29,10 +29,3 @@ public:
         return location;
     }
 };
-
-class SyntaxError : public Error {
-public:
-    SyntaxError(const std::string& message, const Location& location)
-        : Error("[Syntax Error] " + message, location) {
-    }
-};

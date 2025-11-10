@@ -19,10 +19,22 @@ Compiler::Compiler() {
     memory = new Memory();
     syntax_validator = new SyntaxValidator();
     error_reporter = new ErrorReporter();
+    tokens = vector<Token *>();
 }
 
-string Compiler::compile_file(string path) {
+string Compiler::run() {
     string output = "";
+
+    try {
+        compile_line(tokens);    
+    } catch (const Error& e) {
+        error_reporter->log(ErrorType::Syntax, e.what(), script_line.get_location());
+    }
+    
+    return output;
+}
+
+void Compiler::compile_file(string path) {
     vector<string> input = read_file(path);
     input = CommentRemover::remove_multiline_comment(input);
 
@@ -35,26 +47,19 @@ string Compiler::compile_file(string path) {
         if (script_line.is_empty())
             continue;
 
-        try {
-            vector<Token *> tokens = Tokenizer::tokenize(script_line);
-            syntax_validator->validate(tokens);
-            compile_line(tokens);
-        } catch (const Error& e) {
-            error_reporter->log(ErrorType::Syntax, e.what(), script_line.get_location());
-        }
+        vector<Token *> tokens = Tokenizer::tokenize(script_line);
+        syntax_validator->validate(tokens);
+
     }
 
     error_reporter->display_errors();
-    return "";
 }
 
-string Compiler::compile_line(vector<Token *> tokens) {
+void Compiler::compile_line(vector<Token *> tokens) {
     Expression infix = Expression(tokens);
     Expression *postfix = infix.to_postfix();
 
     cout << "[PARSE] Infix  : " << infix.to_string() << endl;
     cout << "[PARSE] Postfix: " << postfix->to_string() << endl;
     postfix->evaluate(memory);
-
-    return "";
 }
