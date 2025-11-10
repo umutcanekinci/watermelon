@@ -1,17 +1,19 @@
 #include "syntax_validator.h"
 #include <stdexcept>
+#include <exceptions.h>
+#include <error_reporter.h>
 
 void SyntaxValidator::validate(const std::vector<Token*>& tokens) {
-        if (!are_parentheses_balanced(tokens))
-            throw std::runtime_error("Unbalanced parentheses");
+    if (!are_parentheses_balanced(tokens))
+        error_reporter::log(ErrorType::Syntax, "Unbalanced parentheses", tokens[0]->get_location());
 
-        if (!are_quotes_balanced(tokens))
-            throw std::runtime_error("Unbalanced string quotes");
+    if (!are_quotes_balanced(tokens))
+        error_reporter::log(ErrorType::Syntax, "Unbalanced string quotes", tokens[0]->get_location());
 
-        for (auto const token : tokens) {
-            check_token(token);
-        }
+    for (auto const token : tokens) {
+        check_token(token);
     }
+}
 
 bool SyntaxValidator::are_parentheses_balanced(const std::vector<Token*>& tokens) {
     Stack<Token*> stack;
@@ -41,19 +43,21 @@ bool SyntaxValidator::are_quotes_balanced(const std::vector<Token*>& tokens) {
 }
 
 void SyntaxValidator::check_token(const Token* token) {
+    if (token->is_variable()) {
+        const std::string& value = token->get_value();
+        if (std::isdigit(value[0])) {
+            error_reporter::log(ErrorType::Syntax, "Variable name cannot start with a digit: " + value, token->get_location());
+        }
+        
+        for (char const &ch : value) {
+            if (!std::isalnum(ch) && ch != '_') {
+                error_reporter::log(ErrorType::Syntax, "Invalid character in variable name: " + value, token->get_location());
+            }
+        }
+    }
+    
     return;
 }
-
-void SyntaxValidator::throw_error(const std::string& message, const Token& token) {
-    const auto& loc = token.get_location();
-    throw std::runtime_error(
-        message + " at " + loc.filename +
-        ":" + std::to_string(loc.line) +
-        ":" + std::to_string(loc.column) +
-        " (token: '" + token.get_value() + "')"
-    );
-}
-
 
 // bool SyntaxValidator::is_valid_assignment() const {
 //     if (!is_assignment() || tokens.empty())

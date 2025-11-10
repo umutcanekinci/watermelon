@@ -11,16 +11,12 @@ ScriptLine::ScriptLine(const Location& location, const string& line) {
     this->line = line;
 }
 
-string ScriptLine::get_text() const {
-    return line;
-}
-
 Location ScriptLine::get_location() const {
     return location;
 }
 
-bool ScriptLine::is_comment() const {
-    return line.rfind("//", 0) == 0; 
+string ScriptLine::get_text() const {
+    return line;
 }
 
 bool ScriptLine::is_empty() const {
