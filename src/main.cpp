@@ -5,9 +5,9 @@
 using namespace std;
 
 int main() {
-    Compiler* compiler = new Compiler();
+    Compiler compiler;
     string input_path = RESOURCES_PATH "test.wm";
-    string output = compiler->compile_file(input_path);
+    string output = compiler.compile_and_run(input_path);
     
     vector<string> output_lines;
     size_t pos = 0;

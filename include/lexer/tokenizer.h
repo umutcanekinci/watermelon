@@ -7,5 +7,5 @@ class Token;
 
 class Tokenizer {
 public:
-    static std::vector<Token *> tokenize(const ScriptLine& line);
+    std::vector<Token *> tokenize(const ScriptLine& line);
 };
