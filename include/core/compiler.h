@@ -9,6 +9,7 @@ class ScriptLine;
 class ErrorReporter;
 class Tokenizer;
 class CommentRemover;
+class HighlightManager;
 class Location;
 
 class Compiler {
@@ -18,6 +19,7 @@ private:
     SyntaxValidator *syntax_validator;
     ErrorReporter *error_reporter;
     Tokenizer *tokenizer;
+    HighlightManager *highlight_manager;
     std::vector<ScriptLine> script_lines;
 public:
     Compiler();

@@ -25,7 +25,7 @@ public:
     std::vector<Token *> get_tokens() const;
     Expression* get_expression() const;
     std::string to_string() const;
-    
+
     void compile(CommentRemover &remover, Tokenizer &tokenizer, SyntaxValidator &validator);
     void remove_comments(CommentRemover &remover);
     bool is_empty() const;

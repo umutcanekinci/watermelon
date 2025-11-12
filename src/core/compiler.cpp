@@ -13,6 +13,7 @@
 #include "error_reporter.h"
 #include "exceptions.h"
 #include "comment_remover.h"
+#include "highlight_manager.h"
 using namespace std;
 
 Compiler::Compiler() {
@@ -20,7 +21,8 @@ Compiler::Compiler() {
     comment_remover = new CommentRemover();
     tokenizer = new Tokenizer();
     error_reporter = new ErrorReporter();
-    syntax_validator = new SyntaxValidator(*error_reporter);
+    highlight_manager = new HighlightManager();
+    syntax_validator = new SyntaxValidator(*error_reporter, *highlight_manager);
 }
 
 string Compiler::compile_and_run(string path) {
