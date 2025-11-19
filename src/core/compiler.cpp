@@ -20,9 +20,14 @@ Compiler::Compiler() {
     memory = new Memory();
     comment_remover = new CommentRemover();
     tokenizer = new Tokenizer();
-    error_reporter = new ErrorReporter();
     highlight_manager = new HighlightManager();
-    syntax_validator = new SyntaxValidator(*error_reporter, *highlight_manager);
+    error_reporter = new ErrorReporter(*highlight_manager);
+    syntax_validator = new SyntaxValidator(*error_reporter);
+}
+
+void Compiler::compile_run_print(string path) {
+    string result = compile_and_run(path);
+    cout << result << endl;
 }
 
 string Compiler::compile_and_run(string path) {
@@ -42,7 +47,7 @@ void Compiler::compile_file(string path) {
     vector<string> input = read_file(path);
     input = comment_remover->remove_multiline_comment(input);
     for (int i=0; i < input.size(); i++) {
-        Location * location = new Location(path, i+1, 1);
+        Location * location = new Location(path, i+1, 1, input[i].size());
         ScriptLine * script_line = new ScriptLine(*location, input[i]);
         script_line->remove_comments(*comment_remover);
         if (script_line->is_empty())

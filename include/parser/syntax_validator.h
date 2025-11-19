@@ -5,22 +5,21 @@
 #include "stack.h"
 
 class ErrorReporter;
-class HighlightManager;
+class ScriptLine;
 
 class SyntaxValidator {
 private:
     ErrorReporter *error_reporter;
-    HighlightManager *highlight_manager;
 public:
-    SyntaxValidator(ErrorReporter& reporter, HighlightManager& highlight_manager);
+    SyntaxValidator(ErrorReporter& reporter);
 
-    void validate(const std::vector<Token*>& tokens);
+    void validate(ScriptLine &script_line);
 
     bool are_parentheses_balanced(const std::vector<Token*>& tokens);
 
     bool are_quotes_balanced(const std::vector<Token*>& tokens);
 
-    void check_token(std::vector<Token*> const tokens, const Token* token);
+    void check_token(const std::string& line, const Token* token);
 
     void throw_error(const std::string& message, const Token& token);
 };

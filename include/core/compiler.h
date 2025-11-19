@@ -23,6 +23,7 @@ private:
     std::vector<ScriptLine> script_lines;
 public:
     Compiler();
+    void compile_run_print(std::string path);
     std::string compile_and_run(std::string path);
     void compile_file(std::string path);
     void compile_line(ScriptLine *line);

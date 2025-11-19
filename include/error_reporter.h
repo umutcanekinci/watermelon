@@ -3,6 +3,8 @@
 #include <vector>
 #include "location.h"
 
+class HighlightManager;
+
 enum class ErrorType {
     Syntax,
     Runtime,
@@ -33,9 +35,12 @@ struct Diagnostic {
 
 class ErrorReporter {
     private:
+        HighlightManager *highlight_manager;
         std::vector<Diagnostic> diagnostics;
     public:
-        void log(ErrorType type, const std::string& message, const Location& location);
+        ErrorReporter(HighlightManager &highlight_manager);
+        void log(ErrorType type, const std::string &message, const Location &location);
+        void log(ErrorType type, const std::string &message, const Location &location, const std::string &line);
         bool has_errors() const;
         void display_errors() const;
         void clear_errors();

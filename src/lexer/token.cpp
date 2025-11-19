@@ -6,6 +6,14 @@
 
 using namespace std;
 
+Token::Token(const char& value) {
+    this->value = string(1, value);
+}
+
+Token::Token(const string& value) {
+    this->value = value;
+}
+
 Token::Token(const string& value, const Location& location) {
     this->value = value;
     this->location = location;

@@ -3,25 +3,25 @@
 #include <exceptions.h>
 #include "error_reporter.h"
 #include <iostream>
-#include "highlight_manager.h"
+#include "script_line.h"
 using namespace std;
 
-SyntaxValidator::SyntaxValidator(ErrorReporter& reporter, HighlightManager& highlight_manager) {
+SyntaxValidator::SyntaxValidator(ErrorReporter& reporter) {
     this->error_reporter = &reporter;
-    this->highlight_manager = &highlight_manager;
 }
 
 void SyntaxValidator::validate(ScriptLine &script_line) {
+    string line = script_line.get_text();
     const vector<Token*>& tokens = script_line.get_tokens();
-    
+    Location location = script_line.get_location();
     if (!are_parentheses_balanced(tokens))
-        error_reporter->log(ErrorType::Syntax, "Unbalanced parentheses", tokens[0]->get_location());
+        error_reporter->log(ErrorType::Syntax, "Unbalanced parentheses", location, line);
 
     if (!are_quotes_balanced(tokens))
-        error_reporter->log(ErrorType::Syntax, "Unbalanced string quotes", tokens[0]->get_location());
+        error_reporter->log(ErrorType::Syntax, "Unbalanced string quotes", location, line);
 
     for (auto const token : tokens) {
-        check_token(tokens, token);
+        check_token(line, token);
     }
 }
 
@@ -31,9 +31,8 @@ bool SyntaxValidator::are_parentheses_balanced(const vector<Token*>& tokens) {
         if (token->get_value() == "(") {
             stack.push(token);
         } else if (token->get_value() == ")") {
-            if (stack.is_empty()) {
-                return false; // Unmatched closing parenthesis
-            }
+            if (stack.is_empty())
+                return false;
             stack.pop();
         }
     }
@@ -52,21 +51,25 @@ bool SyntaxValidator::are_quotes_balanced(const vector<Token*>& tokens) {
     return quote_count % 2 == 0;
 }
 
-void SyntaxValidator::check_token(vector<Token*> const tokens, const Token* token) {
+void SyntaxValidator::check_token(const string& line, const Token* token) {
     if (token->is_variable()) {
         const string& value = token->get_value();
+        Location token_location = token->get_location();
+        int start_pos = token_location.get_start_pos();
+        
         if (isdigit(value[0])) {
-            error_reporter->log(ErrorType::Syntax, "Variable name cannot start with a digit: \n" +  highlight_manager->highlight_token(tokens, token), token->get_location());
+            Location error_location = Location(token_location, start_pos, 1);
+            error_reporter->log(ErrorType::Syntax, "Variable name cannot start with a digit", error_location, line);
         }
         
-        for (char const &ch : value) {
+        for (int i = 0; i < value.size(); i++) {
+            char ch = value[i];
             if (!isalnum(ch) && ch != '_') {
-                error_reporter->log(ErrorType::Syntax, "Invalid character in variable name: " + value, token->get_location());
+                Location error_location = Location(token_location, start_pos + i, 1);
+                error_reporter->log(ErrorType::Syntax, "Invalid character in variable name", error_location, line);
             }
         }
     }
-    
-    return;
 }
 
 // bool SyntaxValidator::is_valid_assignment() const {

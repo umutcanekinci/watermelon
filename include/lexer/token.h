@@ -8,6 +8,8 @@ private:
     std::string value;
     Location location;
 public:
+    Token(const char& value);
+    Token(const std::string& value);
     Token(const std::string& value, const Location& location);
     Token(const char value, const Location& location);
 

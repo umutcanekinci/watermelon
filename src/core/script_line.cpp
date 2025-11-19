@@ -51,7 +51,7 @@ void ScriptLine::tokenize(Tokenizer &tokenizer) {
 }
 
 void ScriptLine::validate(SyntaxValidator &validator) {
-    validator.validate(tokens);
+    validator.validate(*this);
 }
 
 void ScriptLine::compile_expression() {

@@ -33,7 +33,16 @@
 // f = 3.2
 // t = "selam"
 
-1hi = "hi"
-s2.er = 2
+1hi    =  "hi"     // Variable name cannot start with a digit
+s2.$er  =  2 + 5    // Invalid character in variable name
+a = ( 4 % 2        // Unbalanced parentheses
+b = """a           // Unbalanced string quotes
+a = b + c 
+a 5
+a = 2 b = 3
+= 5
+a + = 2
+a = 5 = 3
+
 
 //= 3
