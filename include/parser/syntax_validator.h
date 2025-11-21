@@ -19,7 +19,7 @@ public:
 
     bool are_quotes_balanced(const std::vector<Token*>& tokens);
 
-    void check_token(const std::string& line, const Token* token);
+    void validate_token(const std::string& line, const Token* token);
 
     void throw_error(const std::string& message, const Token& token);
 };

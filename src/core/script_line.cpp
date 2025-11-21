@@ -42,8 +42,8 @@ bool ScriptLine::is_empty() const {
 void ScriptLine::compile(CommentRemover &remover, Tokenizer &tokenizer, SyntaxValidator &validator) {
     remove_comments(remover);
     tokenize(tokenizer);
-    validate(validator);
     compile_expression();
+    validate(validator);
 }
 
 void ScriptLine::tokenize(Tokenizer &tokenizer) {
@@ -52,12 +52,10 @@ void ScriptLine::tokenize(Tokenizer &tokenizer) {
 
 void ScriptLine::validate(SyntaxValidator &validator) {
     validator.validate(*this);
+    // validator.validate_expression(expression);
 }
 
 void ScriptLine::compile_expression() {
-    // cout << "[PARSE] Infix  : " << infix.to_string() << endl;
-    // cout << "[PARSE] Postfix: " << postfix->to_string() << endl;
-    
     expression = new Expression(tokens);
     expression = expression->to_postfix();
 }

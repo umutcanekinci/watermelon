@@ -16,7 +16,7 @@ Expression *Expression::to_postfix() {
     Stack<Token *> *operators = new Stack<Token *>();
 
     for(auto token : tokens) {
-        if(token->is_operator()) {
+        if(token->get_type() == OPERATOR) {
             add_operator_to_stack(token, &postfix, operators);
             continue;
         }
@@ -87,18 +87,19 @@ Value Expression::evaluate(Memory *memory) {
 
     for (auto token : tokens) {
         string token_value = token->get_value();
-        if (!token->is_operator()) {
+        TokenType token_type = token->get_type();
+        if (token_type != OPERATOR) {
             Value val;
-            if (token->is_number()) {
+            if (token_type == NUMBER_LITERAL) {
                 if (token_value.find('.') != std::string::npos)
                     val = Value(std::stof(token_value));
                 else
                     val = Value(std::stoi(token_value));
-            } else if (token->is_bool()) {
+            } else if (token_type == BOOLEAN_LITERAL) {
                 val = Value(token_value == "true");
-            } else if (token->is_string()) {
+            } else if (token_type == STRING_LITERAL) {
                 val = Value(token_value.substr(1, token_value.length() - 2)); // remove quotes
-            } else if (token->is_variable()) {
+            } else if (token_type == IDENTIFIER) {
                 val = Value::make_reference(token_value);
             } else {
                 throw std::runtime_error("Unknown token: " + token_value);

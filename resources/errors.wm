@@ -1,0 +1,91 @@
+// =========================
+// LEXICAL & SYNTAX ERRORS
+// =========================
+*
+
+// 1) Identifier name cannot start with a digit
+1hi = "hi"
+
+// 2) Invalid character in identifier name
+s2.$er = 2 + 5
+
+// 3) Unbalanced parentheses
+a = (4 % 2
+
+// 4) Unbalanced string quotes
+b = "hello
+
+// 5) Unexpected token: incomplete expression
+a = + 5
+
+// 6) Unexpected token: operator after operator
+a = 5 ++ 2
+
+// 7) Expression ends with operator
+x = 4 +
+
+// 8) Standalone operator
+*
+
+// 9) Missing left-hand side of assignment
+= 5
+
+// 10) Two assignments in a row
+a = 5 = 3
+
+// 11) Empty/invalid token sequence
+a 5
+
+// 12) Two expressions on one line without separator
+a = 2 b = 3
+
+// 13) Illegal symbol
+c = @
+
+// =========================
+// SEMANTIC ERRORS (Compile-Time or Runtime)
+// =========================
+
+// 14) Undefined variable usage
+d = e + 1
+
+// 15) Type mismatch: adding string and number
+x = "hello" + 5
+
+// 16) Type mismatch: multiplying string and number
+y = "hi" * 3
+
+// 17) Parentheses mismatch inside valid-looking expression
+z = (5 + 3)) * 2
+
+// =========================
+// RUNTIME ERRORS
+// =========================
+
+// 18) Division by zero (evaluated at runtime)
+p = 5 / 0
+
+// 19) Using undefined variable during runtime evaluation
+result = unknown + 5
+
+// 20) Overflow (dil destekliyorsa)
+big = 999999999999999999999 * 999999999999999999999
+
+// =========================
+// OPTIONAL / ADVANCED TESTS
+// =========================
+
+// 21) Nested invalid variable characters
+we!rd$name = 10
+
+// 22) Tokenizer spacing edge case: multiple spaces
+a      =      4     +   5
+
+// 23) String with bad escape (if escape sequences destekliyorsa)
+msg = "hello \q world"
+
+// 24) Invalid operator placement
+t = (5 *) 2
+
+// 25) Lone identifier (should be either assignment or expression)
+abc

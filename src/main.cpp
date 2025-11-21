@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     Compiler compiler;
-    string input_path = RESOURCES_PATH "test.wm";
+    string input_path = RESOURCES_PATH "errors.wm";
     compiler.compile_run_print(input_path);
     
     // vector<string> output_lines;

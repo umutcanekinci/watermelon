@@ -21,7 +21,7 @@ void SyntaxValidator::validate(ScriptLine &script_line) {
         error_reporter->log(ErrorType::Syntax, "Unbalanced string quotes", location, line);
 
     for (auto const token : tokens) {
-        check_token(line, token);
+        validate_token(line, token);
     }
 }
 
@@ -51,54 +51,12 @@ bool SyntaxValidator::are_quotes_balanced(const vector<Token*>& tokens) {
     return quote_count % 2 == 0;
 }
 
-void SyntaxValidator::check_token(const string& line, const Token* token) {
-    if (token->is_variable()) {
-        const string& value = token->get_value();
-        Location token_location = token->get_location();
-        int start_pos = token_location.get_start_pos();
-        
-        if (isdigit(value[0])) {
-            Location error_location = Location(token_location, start_pos, 1);
-            error_reporter->log(ErrorType::Syntax, "Variable name cannot start with a digit", error_location, line);
-        }
-        
-        for (int i = 0; i < value.size(); i++) {
-            char ch = value[i];
-            if (!isalnum(ch) && ch != '_') {
-                Location error_location = Location(token_location, start_pos + i, 1);
-                error_reporter->log(ErrorType::Syntax, "Invalid character in variable name", error_location, line);
-            }
-        }
-    }
+void SyntaxValidator::validate_token(const string& line, const Token* token) { 
+
+    // if (token->is_variable()) {
+    //     validate_variable(line, token);
+    // }
+    // else if (token->is_number()) {
+    //     validate_number(line, token);
+    // }
 }
-
-// bool SyntaxValidator::is_valid_assignment() const {
-//     if (!is_assignment() || tokens.empty())
-//         return false;
-
-//     if (!tokens[0]->is_variable())
-//         return false;
-
-//     if (tokens[1]->get_value() != "=")
-//         return false;
-
-//     if (tokens.size() < 3)
-//         return false;
-
-//     return true;
-// }
-
-
-// bool Token::is_valid_variable() const {
-//     if (value.empty() || isdigit(value[0])) {
-//         return false;
-//     }
-
-//     // Check that all characters are alphanumeric or underscore
-//     for (char const &ch : value) {
-//         if (!isalnum(ch) && ch != '_') {
-//             return false;
-//         }
-//     }
-//     return true;
-// }

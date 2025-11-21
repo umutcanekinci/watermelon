@@ -19,10 +19,10 @@ using namespace std;
 Compiler::Compiler() {
     memory = new Memory();
     comment_remover = new CommentRemover();
-    tokenizer = new Tokenizer();
     highlight_manager = new HighlightManager();
     error_reporter = new ErrorReporter(*highlight_manager);
     syntax_validator = new SyntaxValidator(*error_reporter);
+    tokenizer = new Tokenizer(*error_reporter);
 }
 
 void Compiler::compile_run_print(string path) {
